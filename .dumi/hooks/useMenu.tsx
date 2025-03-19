@@ -168,20 +168,26 @@ const useMenu = (options: UseMenuOptions = {}): readonly [MenuProps['items'], st
               type: 'group',
               label: group?.title,
               key: group?.title,
-              children: group.children?.map((item) => ({
-                label: (
-                  <MenuItemLabelWithTag
-                    before={before}
-                    after={after}
-                    link={item.link}
-                    title={item?.title}
-                    subtitle={item.frontmatter?.subtitle}
-                    search={search}
-                    tag={item.frontmatter?.tag}
-                  />
-                ),
-                key: item.link.replace(/(-cn$)/g, ''),
-              })),
+              children: group.children
+                ?.sort((a, b) => {
+                  const orderA = a.order ?? 0;
+                  const orderB = b.order ?? 0;
+                  return orderA - orderB;
+                })
+                .map((item) => ({
+                  label: (
+                    <MenuItemLabelWithTag
+                      before={before}
+                      after={after}
+                      link={item.link}
+                      title={item?.title}
+                      subtitle={item.frontmatter?.subtitle}
+                      search={search}
+                      tag={item.frontmatter?.tag}
+                    />
+                  ),
+                  key: item.link.replace(/(-cn$)/g, ''),
+                })),
             });
           }
         } else {
