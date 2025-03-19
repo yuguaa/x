@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Bubble, Sender, Welcome } from '@ant-design/x';
+import { Bubble, Sender, ThoughtChain, Welcome } from '@ant-design/x';
 import { Flex, type GetProp, theme } from 'antd';
 import * as React from 'react';
 
@@ -7,17 +7,23 @@ const AI_ICON =
   'https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp';
 
 const roles: GetProp<typeof Bubble.List, 'roles'> = {
+  user: {
+    placement: 'end',
+    avatar: { icon: <UserOutlined />, style: { background: '#87d068' } },
+    variant: 'outlined',
+  },
   ai: {
     placement: 'start',
     avatar: { src: AI_ICON },
     typing: { step: 5, interval: 20 },
-    style: {
-      maxWidth: 600,
-    },
   },
-  user: {
-    placement: 'end',
-    avatar: { icon: <UserOutlined />, style: { background: '#87d068' } },
+  chain: {
+    placement: 'start',
+    variant: 'borderless',
+    messageRender: (text: string) => {
+      const data = JSON.parse(text);
+      return <ThoughtChain items={data} />;
+    },
   },
 };
 
@@ -56,7 +62,7 @@ export default function ChatBox(props: ChatBoxProps) {
           />
         </div>
       ) : (
-        <Bubble.List style={{ flex: 'auto' }} items={items} roles={roles} />
+        <Bubble.List style={{ flex: 'auto', overflowY: 'auto' }} items={items} roles={roles} />
       )}
 
       <Sender
