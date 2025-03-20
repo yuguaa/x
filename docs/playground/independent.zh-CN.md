@@ -6,4 +6,8 @@ title: 独立式
 order: 0
 ---
 
-<code src="./independent/index.tsx" background="grey" compact></code>
+```bash
+npx @ant-design/x scaffold Independent
+```
+
+<code src="./Independent/index.tsx" background="grey" compact></code>

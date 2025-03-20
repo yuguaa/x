@@ -7,4 +7,8 @@ order: 0
 description: Natural language is dominant.
 ---
 
-<code src="./independent/index.tsx" background="grey" compact></code>
+```bash
+npx @ant-design/x scaffold Independent
+```
+
+<code src="./Independent/index.tsx" background="grey" compact></code>
