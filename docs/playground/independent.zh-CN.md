@@ -6,4 +6,4 @@ title: 独立式
 order: 0
 ---
 
-<code src="./independent.tsx" background="grey" compact></code>
+<code src="./independent/index.tsx" background="grey" compact></code>
