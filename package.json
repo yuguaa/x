@@ -34,6 +34,9 @@
     "locale",
     "BUG_VERSIONS.json"
   ],
+  "bin": {
+    "scaffold": "bin/scaffold.js"
+  },
   "scripts": {
     "api-collection": "antd-tools run api-collection",
     "authors": "tsx scripts/generate-authors.ts",
