@@ -7,7 +7,7 @@ order: 0
 ---
 
 ```bash
-npx @ant-design/x scaffold Independent
+npx @ant-design/x scaffold Independent # 复制到 .scaffold
 ```
 
 <code src="./Independent/index.tsx" background="grey" compact></code>

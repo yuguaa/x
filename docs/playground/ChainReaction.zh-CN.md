@@ -7,7 +7,7 @@ order: 1
 ---
 
 ```bash
-npx @ant-design/x scaffold ChainReaction
+npx @ant-design/x scaffold ChainReaction # 复制到 .scaffold
 ```
 
 <code src="./ChainReaction/index.tsx" compact></code>
