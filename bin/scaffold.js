@@ -47,3 +47,9 @@ execSync(`rm -rf ${cloneTargetFolder}`, {
 execSync(`mv ${path.resolve(tmpDir, targetFolder)} ${cloneTargetFolder}`, {
   stdio: 'inherit',
 });
+
+// 收尾
+console.log(`Done. see: ${cloneTargetFolder}`);
+execSync(`rm -rf ${tmpDir}`, {
+  stdio: 'inherit',
+});
