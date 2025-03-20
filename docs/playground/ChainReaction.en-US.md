@@ -6,4 +6,8 @@ title: Chain Reaction
 order: 1
 ---
 
+```bash
+npx @ant-design/x scaffold ChainReaction
+```
+
 <code src="./ChainReaction/index.tsx" compact></code>
