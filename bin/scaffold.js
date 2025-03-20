@@ -7,23 +7,22 @@ const { execSync } = require('child_process');
 
 const rootCWD = process.cwd();
 
-// const PRESET_BRANCH = 'main';
-const PRESET_BRANCH = 'ChainReaction';
+const PRESET_BRANCH = 'main';
 
-// 获取 args 的最后一个参数
+// Get the last argument from args
 const folderName = process.argv[process.argv.length - 1];
 const targetFolder = path.join(`docs/playground/${folderName}`);
 console.log(`Clone playground: ${targetFolder}`);
 
-// 创建一个临时的文件夹
+// Create a temporary folder
 const osTmpDir = os.tmpdir();
 const tmpDir = fs.mkdtempSync(path.resolve(osTmpDir, 'antdx-'));
 console.log(`Create tmp dir: ${tmpDir}`);
 
-// 修改当前 cwd 为 tmpDir
+// Change current working directory to tmpDir
 process.chdir(tmpDir);
 
-// 执行 git clone 命令
+// Execute git clone command
 console.log(`Target folder: ${targetFolder}`);
 execSync(
   `git clone --no-checkout https://github.com/ant-design/x.git  --branch ${PRESET_BRANCH} --depth=1 ./`,
@@ -41,7 +40,7 @@ execSync(`git checkout ${PRESET_BRANCH}`, {
   stdio: 'inherit',
 });
 
-// 把 targetFolder 移动到当前目录
+// Move targetFolder to the current directory
 const cloneTargetFolder = path.join(rootCWD, '.scaffold');
 execSync(`rm -rf ${cloneTargetFolder}`, {
   stdio: 'inherit',
@@ -50,7 +49,7 @@ execSync(`mv ${path.resolve(tmpDir, targetFolder)} ${cloneTargetFolder}`, {
   stdio: 'inherit',
 });
 
-// 收尾
+// Cleanup
 console.log(`Remove tmp dir: ${tmpDir}`);
 execSync(`rm -rf ${tmpDir}`, {
   stdio: 'inherit',
