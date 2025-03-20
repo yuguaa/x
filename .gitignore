@@ -76,6 +76,7 @@ __image_snapshots__/
 .eslintcache
 .node-version
 .node
+.scaffold/
 
 .env
 examples/
