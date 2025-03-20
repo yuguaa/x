@@ -49,7 +49,8 @@ execSync(`mv ${path.resolve(tmpDir, targetFolder)} ${cloneTargetFolder}`, {
 });
 
 // 收尾
-console.log(`Done. see: ${cloneTargetFolder}`);
+console.log(`Remove tmp dir: ${tmpDir}`);
 execSync(`rm -rf ${tmpDir}`, {
   stdio: 'inherit',
 });
+console.log(`Done. see: ${cloneTargetFolder}`);
