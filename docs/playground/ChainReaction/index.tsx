@@ -119,7 +119,7 @@ function App() {
   return (
     <Splitter style={{ height: 722 }} className={styles.root}>
       <Splitter.Panel>
-        <ChatBox items={items} onSubmit={onChatSubmit} />
+        <ChatBox messages={items} onSubmit={onChatSubmit} />
       </Splitter.Panel>
       <Splitter.Panel defaultSize={500}>
         <Flex

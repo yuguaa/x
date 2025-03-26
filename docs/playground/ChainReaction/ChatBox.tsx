@@ -35,12 +35,12 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
 };
 
 export interface ChatBoxProps {
-  items: GetProp<typeof Bubble.List, 'items'>;
-  onSubmit: (value: string) => void;
+  messages: GetProp<typeof Bubble.List, 'items'>;
+  onSubmit: (value: string, files: File[]) => void;
 }
 
 export default function ChatBox(props: ChatBoxProps) {
-  const { onSubmit } = props;
+  const { messages, onSubmit } = props;
 
   // =========================== Styles ===========================
   const { token } = theme.useToken();
@@ -49,7 +49,7 @@ export default function ChatBox(props: ChatBoxProps) {
   const senderRef = React.useRef<GetRef<typeof Sender>>(null);
 
   const [open, setOpen] = React.useState(false);
-  const [items, setItems] = React.useState<GetProp<AttachmentsProps, 'items'>>([]);
+  const [files, setFiles] = React.useState<GetProp<AttachmentsProps, 'items'>>([]);
 
   // =========================== Sender ===========================
   const [text, setText] = React.useState('');
@@ -70,8 +70,8 @@ export default function ChatBox(props: ChatBoxProps) {
       <Attachments
         // Mock not real upload file
         beforeUpload={() => false}
-        items={items}
-        onChange={({ fileList }) => setItems(fileList)}
+        items={files}
+        onChange={({ fileList }) => setFiles(fileList)}
         placeholder={(type) =>
           type === 'drop'
             ? {
@@ -96,7 +96,7 @@ export default function ChatBox(props: ChatBoxProps) {
       align="stretch"
       gap={token.padding}
     >
-      {!items.length ? (
+      {!messages.length ? (
         <div style={{ flex: 'auto' }}>
           <Welcome
             style={{
@@ -109,21 +109,25 @@ export default function ChatBox(props: ChatBoxProps) {
           />
         </div>
       ) : (
-        <Bubble.List style={{ flex: 'auto', overflowY: 'auto' }} items={items} roles={roles} />
+        <Bubble.List style={{ flex: 'auto', overflowY: 'auto' }} items={messages} roles={roles} />
       )}
 
       <Sender
         header={senderHeader}
         prefix={
-          <Badge dot={items.length > 0 && !open}>
+          <Badge dot={files.length > 0 && !open}>
             <Button onClick={() => setOpen(!open)} icon={<LinkOutlined />} />
           </Badge>
         }
         value={text}
         onChange={setText}
         onSubmit={(value) => {
+          onSubmit(
+            value,
+            files.map((item) => item.originFileObj!),
+          );
           setText('');
-          onSubmit(value);
+          setFiles([]);
         }}
       />
     </Flex>
