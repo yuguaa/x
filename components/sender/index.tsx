@@ -38,7 +38,8 @@ export type ActionsRender = (
   },
 ) => React.ReactNode;
 
-export interface SenderProps extends Pick<TextareaProps, 'placeholder' | 'onKeyPress'> {
+export interface SenderProps
+  extends Pick<TextareaProps, 'placeholder' | 'onKeyPress' | 'onFocus' | 'onBlur'> {
   prefixCls?: string;
   defaultValue?: string;
   value?: string;
@@ -73,6 +74,7 @@ export interface SenderProps extends Pick<TextareaProps, 'placeholder' | 'onKeyP
   allowSpeech?: AllowSpeech;
   prefix?: React.ReactNode;
   header?: React.ReactNode;
+  autoSize?: boolean | { minRows?: number; maxRows?: number };
 }
 
 export type SenderRef = {
@@ -113,6 +115,7 @@ const ForwardSender = React.forwardRef<SenderRef, SenderProps>((props, ref) => {
     header,
     onPaste,
     onPasteFile,
+    autoSize = { maxRows: 8 },
     ...rest
   } = props;
 
@@ -307,7 +310,7 @@ const ForwardSender = React.forwardRef<SenderRef, SenderProps>((props, ref) => {
           disabled={disabled}
           style={{ ...contextConfig.styles.input, ...styles.input }}
           className={classnames(inputCls, contextConfig.classNames.input, classNames.input)}
-          autoSize={{ maxRows: 8 }}
+          autoSize={autoSize}
           value={innerValue}
           onChange={(event) => {
             triggerValueChange(
