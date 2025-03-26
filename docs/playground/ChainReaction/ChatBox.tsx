@@ -1,6 +1,13 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Bubble, Sender, ThoughtChain, Welcome } from '@ant-design/x';
-import { Flex, type GetProp, theme } from 'antd';
+import { CloudUploadOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  Attachments,
+  AttachmentsProps,
+  Bubble,
+  Sender,
+  ThoughtChain,
+  Welcome,
+} from '@ant-design/x';
+import { Badge, Button, Flex, type GetProp, GetRef, theme } from 'antd';
 import * as React from 'react';
 
 const AI_ICON =
@@ -33,15 +40,55 @@ export interface ChatBoxProps {
 }
 
 export default function ChatBox(props: ChatBoxProps) {
-  const { items, onSubmit } = props;
+  const { onSubmit } = props;
 
   // =========================== Styles ===========================
   const { token } = theme.useToken();
+
+  // ============================ File ============================
+  const senderRef = React.useRef<GetRef<typeof Sender>>(null);
+
+  const [open, setOpen] = React.useState(false);
+  const [items, setItems] = React.useState<GetProp<AttachmentsProps, 'items'>>([]);
 
   // =========================== Sender ===========================
   const [text, setText] = React.useState('');
 
   // =========================== Render ===========================
+  // >>>>> Header
+  const senderHeader = (
+    <Sender.Header
+      title="Attachments"
+      open={open}
+      onOpenChange={setOpen}
+      styles={{
+        content: {
+          padding: 0,
+        },
+      }}
+    >
+      <Attachments
+        // Mock not real upload file
+        beforeUpload={() => false}
+        items={items}
+        onChange={({ fileList }) => setItems(fileList)}
+        placeholder={(type) =>
+          type === 'drop'
+            ? {
+                title: 'Drop file here',
+              }
+            : {
+                icon: <CloudUploadOutlined />,
+                title: 'Upload files',
+                description: 'Click or drag files to this area to upload',
+              }
+        }
+        getDropContainer={() => senderRef.current?.nativeElement}
+      />
+    </Sender.Header>
+  );
+
+  // >>>>> Content
   return (
     <Flex
       vertical
@@ -66,6 +113,12 @@ export default function ChatBox(props: ChatBoxProps) {
       )}
 
       <Sender
+        header={senderHeader}
+        prefix={
+          <Badge dot={items.length > 0 && !open}>
+            <Button onClick={() => setOpen(!open)} icon={<LinkOutlined />} />
+          </Badge>
+        }
         value={text}
         onChange={setText}
         onSubmit={(value) => {
