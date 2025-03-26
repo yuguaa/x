@@ -1,9 +1,10 @@
-import { Bubble, Sender, Welcome, useXAgent, useXChat } from '@ant-design/x';
-import { Flex, type GetProp, Splitter, Typography, theme } from 'antd';
+import { Bubble, useXAgent, useXChat } from '@ant-design/x';
+import { Flex, type GetProp, Splitter, theme } from 'antd';
 import { createStyles } from 'antd-style';
 import * as React from 'react';
 import ChatBox from './ChatBox';
 import Preview from './Preview';
+import useChain from './useChain';
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -16,7 +17,7 @@ const useStyle = createStyles(({ css }) => {
   };
 });
 
-const sleep = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
+// const sleep = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
 
 interface AgentMessageSingleType {
   role: 'user' | 'ai' | 'chain';
@@ -27,56 +28,53 @@ type AgentMessageType = AgentMessageSingleType[];
 
 function App() {
   // =========================== Agent ============================
-  const [agent] = useXAgent<AgentMessageType>({
-    request: async ({ message = [] }, { onSuccess, onUpdate }) => {
-      const { text } = message[0];
+  // const [agent] = useXAgent<AgentMessageType>({
+  //   request: async ({ message = [] }, { onSuccess, onUpdate }) => {
+  //     // const { text } = message[0];
+  //     // const rawTips = {
+  //     //   role: 'ai',
+  //     //   text: `Mock success. Starting mock plain of the request: ${text}`,
+  //     // } as const;
+  //     // onUpdate([rawTips]);
+  //     // await sleep();
+  //     // const mockChain = [
+  //     //   {
+  //     //     title: 'Search for the internet',
+  //     //     description: 'Use `Browser` to search for the internet.',
+  //     //   },
+  //     //   {
+  //     //     title: 'Create a new document',
+  //     //     description: 'Create note book with `Notepad`.',
+  //     //   },
+  //     //   {
+  //     //     title: 'Record the screen data',
+  //     //     description: 'Use `Screen Recorder` to record the screen data.',
+  //     //   },
+  //     //   {
+  //     //     title: 'Generate the report',
+  //     //     description: 'Use `Excel` to generate the report.',
+  //     //   },
+  //     //   ...Array.from({ length: 5 }).map((_, index) => ({
+  //     //     title: `Other Mock Step ${index + 1}`,
+  //     //     description: `Description of mock step ${index + 1}`,
+  //     //   })),
+  //     // ];
+  //     // for (let i = 0; i < mockChain.length; i++) {
+  //     //   const currentList = mockChain.slice(0, i + 1);
+  //     //   onUpdate([rawTips, { role: 'chain', text: JSON.stringify(currentList) }]);
+  //     //   await sleep();
+  //     // }
+  //     // onSuccess([rawTips, { role: 'chain', text: JSON.stringify(mockChain) }]);
+  //   },
+  // });
 
-      const rawTips = {
-        role: 'ai',
-        text: `Mock success. Starting mock plain of the request: ${text}`,
-      } as const;
+  // // ============================ Chat ============================
+  // const { onRequest, messages } = useXChat<AgentMessageType>({
+  //   agent,
+  // });
 
-      onUpdate([rawTips]);
-
-      await sleep();
-
-      const mockChain = [
-        {
-          title: 'Search for the internet',
-          description: 'Use `Browser` to search for the internet.',
-        },
-        {
-          title: 'Create a new document',
-          description: 'Create note book with `Notepad`.',
-        },
-        {
-          title: 'Record the screen data',
-          description: 'Use `Screen Recorder` to record the screen data.',
-        },
-        {
-          title: 'Generate the report',
-          description: 'Use `Excel` to generate the report.',
-        },
-        ...Array.from({ length: 5 }).map((_, index) => ({
-          title: `Other Mock Step ${index + 1}`,
-          description: `Description of mock step ${index + 1}`,
-        })),
-      ];
-
-      for (let i = 0; i < mockChain.length; i++) {
-        const currentList = mockChain.slice(0, i + 1);
-        onUpdate([rawTips, { role: 'chain', text: JSON.stringify(currentList) }]);
-        await sleep();
-      }
-
-      onSuccess([rawTips, { role: 'chain', text: JSON.stringify(mockChain) }]);
-    },
-  });
-
-  // ============================ Chat ============================
-  const { onRequest, messages } = useXChat<AgentMessageType>({
-    agent,
-  });
+  // Check `useChain.ts` for more details.
+  const { onRequest, messages, loading } = useChain();
 
   // =========================== Style ============================
   const { token } = theme.useToken();
@@ -112,14 +110,14 @@ function App() {
       });
     }
 
-    return [nextItems, lastChainTask] as const;
+    return [nextItems, lastChainTask!] as const;
   }, [messages]);
 
   // =========================== Render ===========================
   return (
     <Splitter style={{ height: 722 }} className={styles.root}>
       <Splitter.Panel>
-        <ChatBox messages={items} onSubmit={onChatSubmit} />
+        <ChatBox messages={items} onSubmit={onChatSubmit} loading={loading} />
       </Splitter.Panel>
       <Splitter.Panel defaultSize={500}>
         <Flex

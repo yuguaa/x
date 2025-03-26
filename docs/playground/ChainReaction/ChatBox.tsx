@@ -37,10 +37,11 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
 export interface ChatBoxProps {
   messages: GetProp<typeof Bubble.List, 'items'>;
   onSubmit: (value: string, files: File[]) => void;
+  loading: boolean;
 }
 
 export default function ChatBox(props: ChatBoxProps) {
-  const { messages, onSubmit } = props;
+  const { messages, onSubmit, loading } = props;
 
   // =========================== Styles ===========================
   const { token } = theme.useToken();
@@ -113,6 +114,7 @@ export default function ChatBox(props: ChatBoxProps) {
       )}
 
       <Sender
+        loading={loading}
         header={senderHeader}
         prefix={
           <Badge dot={files.length > 0 && !open}>
