@@ -52,6 +52,12 @@ export default function ChatBox(props: ChatBoxProps) {
   const [open, setOpen] = React.useState(false);
   const [files, setFiles] = React.useState<GetProp<AttachmentsProps, 'items'>>([]);
 
+  React.useEffect(() => {
+    if (!files.length) {
+      setOpen(false);
+    }
+  }, [files.length]);
+
   // =========================== Sender ===========================
   const [text, setText] = React.useState('');
 

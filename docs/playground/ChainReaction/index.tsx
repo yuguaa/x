@@ -82,8 +82,8 @@ function App() {
   const { styles } = useStyle();
 
   // ============================ Data ============================
-  const onChatSubmit = (text: string) => {
-    onRequest([{ text, role: 'user' }]);
+  const onChatSubmit = (text: string, files: File[]) => {
+    onRequest([{ text, role: 'user', files }]);
   };
 
   const [items, lastChainTask] = React.useMemo(() => {

@@ -46,6 +46,21 @@ interface XRequestMessage extends AnyObject {
   content?: XRequestMessageContent;
 }
 
+/** Debug usage */
+export interface InternalRequestConfig {
+  /**
+   * Replace the default base URL
+   */
+  baseURL?: string;
+
+  /**
+   * Attach files if needed
+   */
+  files?: Blob[];
+
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+}
+
 /**
  * Compatible with the parameters of OpenAI's chat.completions.create,
  * with plans to support more parameters and adapters in the future
@@ -127,22 +142,55 @@ class XRequestClass {
     return XRequestClass.instanceBuffer.get(id) as XRequestClass;
   }
 
-  public create = async <Input = AnyObject, Output = SSEOutput>(
+  /**
+   * @private Internal dev usage, do not use it in production or lock your version
+   */
+  public call = async <Input = AnyObject, Output = SSEOutput>(
     params: XRequestParams & Input,
+    config: InternalRequestConfig,
     callbacks?: XRequestCallbacks<Output>,
     transformStream?: XStreamOptions<Output>['transformStream'],
   ) => {
-    const requestInit = {
-      method: 'POST',
-      body: JSON.stringify({
+    const { baseURL, files, method = 'POST' } = config;
+
+    const isGetMethod = method === 'GET';
+
+    let body: string | FormData;
+
+    if (files?.length) {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append('file', file);
+      });
+      formData.append('data', JSON.stringify(params));
+
+      body = formData;
+    } else {
+      body = JSON.stringify({
         model: this.model,
         ...params,
-      }),
+      });
+    }
+
+    const requestInit = {
+      method,
+      body: isGetMethod ? undefined : body,
       headers: this.defaultHeaders,
     };
 
     try {
-      const response = await xFetch(this.baseURL, {
+      let mergedURL = baseURL || this.baseURL;
+
+      // Convert GET params to URL
+      if (isGetMethod) {
+        const url = new URL(mergedURL);
+        Object.keys(params).forEach((key) => {
+          url.searchParams.append(key, (params as any)[key]);
+        });
+        mergedURL = url.toString();
+      }
+
+      const response = await xFetch(mergedURL, {
         fetch: this.customOptions.fetch,
         ...requestInit,
       });
@@ -177,6 +225,14 @@ class XRequestClass {
 
       throw err;
     }
+  };
+
+  public create = async <Input = AnyObject, Output = SSEOutput>(
+    params: XRequestParams & Input,
+    callbacks?: XRequestCallbacks<Output>,
+    transformStream?: XStreamOptions<Output>['transformStream'],
+  ) => {
+    return this.call<Input, Output>(params, {}, callbacks, transformStream);
   };
 
   private customResponseHandler = async <Output = SSEOutput>(
