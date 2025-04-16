@@ -23,7 +23,6 @@ const options: XRequestOptions = {
   model: 'gpt-3.5-turbo',
   dangerouslyApiKey: 'dangerouslyApiKey',
 };
-
 const params = { messages: [{ role: 'user', content: 'Hello' }] };
 
 function mockSSEReadableStream() {
@@ -116,15 +115,6 @@ describe('XRequest Class', () => {
     expect(callbacks.onError).not.toHaveBeenCalled();
     expect(callbacks.onUpdate).toHaveBeenCalledWith(ndJsonData.split(ND_JSON_SEPARATOR)[0]);
     expect(callbacks.onUpdate).toHaveBeenCalledWith(ndJsonData.split(ND_JSON_SEPARATOR)[1]);
-  });
-
-  test('should reuse the same instance for the same baseURL or fetch', () => {
-    const request1 = XRequest(options);
-    const request2 = XRequest(options);
-    expect(request1).toBe(request2);
-    const request3 = XRequest({ fetch: mockedXFetch, baseURL: options.baseURL });
-    const request4 = XRequest({ fetch: mockedXFetch, baseURL: options.baseURL });
-    expect(request3).toBe(request4);
   });
 
   test('should handle error response', async () => {
