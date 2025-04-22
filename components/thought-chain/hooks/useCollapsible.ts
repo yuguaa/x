@@ -58,17 +58,15 @@ const useCollapsible: UseCollapsible = (collapsible, prefixCls, rootPrefixCls) =
   const [mergedExpandedKeys, setMergedExpandedKeys] = useMergedState<
     RequiredCollapsibleOptions['expandedKeys']
   >(customizeExpandedKeys, {
-    value: isThoughtChainUnControlled ? undefined : customizeExpandedKeys,
     onChange: customizeOnExpand,
   });
 
   // ============================ Event ============================
   const onItemExpand = (curKey: string) => {
     setMergedExpandedKeys((preKeys) => {
-      const targetPreKeys = isThoughtChainUnControlled ? preKeys : customizeExpandedKeys;
-      const keys = targetPreKeys.includes(curKey)
-        ? targetPreKeys.filter((key) => key !== curKey)
-        : [...targetPreKeys, curKey];
+      const keys = preKeys?.includes(curKey)
+        ? preKeys.filter((key) => key !== curKey)
+        : [...preKeys, curKey];
       customizeOnExpand?.(keys);
       return keys;
     });
