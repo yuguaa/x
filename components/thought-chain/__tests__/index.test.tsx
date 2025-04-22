@@ -100,9 +100,6 @@ describe('ThoughtChain Component', () => {
           items={items}
           collapsible={{
             expandedKeys,
-            onExpand: (keys) => {
-              onExpand(keys);
-            },
           }}
         />
       );
