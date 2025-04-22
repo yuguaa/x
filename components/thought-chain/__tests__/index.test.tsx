@@ -92,7 +92,6 @@ describe('ThoughtChain Component', () => {
   });
 
   it('ThoughtChain component work with controlled mode', async () => {
-    const onExpand = jest.fn();
     const App = () => {
       const [expandedKeys] = React.useState<string[]>(['test2']);
       return (
