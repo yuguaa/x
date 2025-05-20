@@ -349,7 +349,7 @@ const Copilot = (props: CopilotProps) => {
             items={MOCK_QUESTIONS.map((i) => ({ key: i, description: i }))}
             onItemClick={(info) => handleUserSubmit(info?.data?.description as string)}
             style={{
-             marginInline: 16
+              marginInline: 16,
             }}
             styles={{
               title: { fontSize: 14 },
@@ -376,10 +376,10 @@ const Copilot = (props: CopilotProps) => {
           type === 'drop'
             ? { title: 'Drop file here' }
             : {
-              icon: <CloudUploadOutlined />,
-              title: 'Upload files',
-              description: 'Click or drag files to this area to upload',
-            }
+                icon: <CloudUploadOutlined />,
+                title: 'Upload files',
+                description: 'Click or drag files to this area to upload',
+              }
         }
       />
     </Sender.Header>
