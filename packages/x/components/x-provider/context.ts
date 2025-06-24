@@ -1,5 +1,5 @@
+import type { ConfigProviderProps as AntdConfigProviderProps } from 'antd/es/config-provider';
 import React from 'react';
-
 import type { AnyObject, ShortcutKeys } from '../_util/type';
 import type { ActionsProps } from '../actions';
 import { AttachmentsProps } from '../attachments';
@@ -39,7 +39,7 @@ export interface XComponentsConfig {
   think?: ComponentConfig<ThinkProps>;
 }
 
-export interface XProviderProps extends XComponentsConfig {
+export interface XProviderProps extends XComponentsConfig, AntdConfigProviderProps {
   // Non-component config props
 }
 
