@@ -1,11 +1,9 @@
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import React from 'react';
-
-import XProviderContext from './context';
-import useXProviderContext, { defaultPrefixCls } from './hooks/use-x-provider-context';
-
 import LocaleProvider, { ANT_MARK } from '../locale';
 import type { XProviderProps } from './context';
+import XProviderContext from './context';
+import useXProviderContext, { defaultPrefixCls } from './hooks/use-x-provider-context';
 
 const XProvider: React.FC<XProviderProps> = (props) => {
   const {
