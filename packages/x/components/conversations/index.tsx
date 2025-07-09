@@ -158,7 +158,7 @@ const Conversations: React.FC<ConversationsProps> & CompoundedComponent = (props
   const contextConfig = useXComponentConfig('conversations');
 
   // ============================ Style ============================
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId, cssVarCls] = useStyle(prefixCls);
 
   const mergedCls = classnames(
     prefixCls,
@@ -248,7 +248,7 @@ const Conversations: React.FC<ConversationsProps> & CompoundedComponent = (props
   );
 
   // ============================ Render ============================
-  return wrapCSSVar(
+  return (
     <ul
       {...domProps}
       style={{
@@ -297,7 +297,7 @@ const Conversations: React.FC<ConversationsProps> & CompoundedComponent = (props
           itemNode
         );
       })}
-    </ul>,
+    </ul>
   );
 };
 

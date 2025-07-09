@@ -1,5 +1,5 @@
-import { Input } from 'antd';
 import type { InputRef as AntdInputRef, InputRef } from 'antd';
+import { Input } from 'antd';
 import classnames from 'classnames';
 import pickAttrs from 'rc-util/lib/pickAttrs';
 import getValue from 'rc-util/lib/utils/get';

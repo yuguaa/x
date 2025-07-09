@@ -44,16 +44,7 @@ const XProvider: React.FC<XProviderProps> = (props) => {
   }
   return (
     <XProviderContext.Provider value={xProviderProps}>
-      <AntdConfigProvider
-        {...antdConfProps}
-        // Note:  we can not set `cssVar` by default.
-        //        Since when developer not wrap with XProvider,
-        //        the generate css is still using css var but no css var injected.
-        // Origin comment: antdx enable cssVar by default, and antd v6 will enable cssVar by default
-        // theme={{ cssVar: true, ...antdConfProps?.theme }}
-        theme={theme}
-        locale={locale}
-      >
+      <AntdConfigProvider {...antdConfProps} theme={theme} locale={locale}>
         {childNode}
       </AntdConfigProvider>
     </XProviderContext.Provider>

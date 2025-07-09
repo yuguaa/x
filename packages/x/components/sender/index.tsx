@@ -5,9 +5,6 @@ import React from 'react';
 import useProxyImperativeHandle from '../_util/hooks/use-proxy-imperative-handle';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
-import SenderHeader, { SendHeaderContext } from './SenderHeader';
-import SlotTextArea, { type SlotTextAreaRef } from './SlotTextArea';
-import TextArea, { type TextAreaRef } from './TextArea';
 import { ActionButtonContext } from './components/ActionButton';
 import ClearButton from './components/ClearButton';
 import LoadingButton from './components/LoadingButton';
@@ -24,7 +21,10 @@ import type {
   SlotConfigType,
   SubmitType,
 } from './interface';
+import SenderHeader, { SendHeaderContext } from './SenderHeader';
+import SlotTextArea, { type SlotTextAreaRef } from './SlotTextArea';
 import useStyle from './style';
+import TextArea, { type TextAreaRef } from './TextArea';
 import useSpeech from './useSpeech';
 
 export type {
@@ -104,7 +104,7 @@ const ForwardSender = React.forwardRef<any, SenderProps>((props, ref) => {
   const inputCls = `${prefixCls}-input`;
 
   // ============================ Styles ============================
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId, cssVarCls] = useStyle(prefixCls);
   const mergedCls = classnames(
     prefixCls,
     contextConfig.className,
@@ -265,7 +265,7 @@ const ForwardSender = React.forwardRef<any, SenderProps>((props, ref) => {
   };
 
   // ============================ Render ============================
-  return wrapCSSVar(
+  return (
     <SenderContext.Provider value={contextValue}>
       <div ref={containerRef} className={mergedCls} style={{ ...contextConfig.style, ...style }}>
         {/* Header */}
@@ -326,7 +326,7 @@ const ForwardSender = React.forwardRef<any, SenderProps>((props, ref) => {
           )}
         </ActionButtonContext.Provider>
       </div>
-    </SenderContext.Provider>,
+    </SenderContext.Provider>
   );
 });
 

@@ -11,8 +11,8 @@ import * as utils from '../../utils';
 import { getThemeConfig } from '../../utils';
 import type { SiteContextProps } from '../SiteContext';
 import SiteContext from '../SiteContext';
-import SwitchBtn from './SwitchBtn';
 import type { SharedProps } from './interface';
+import SwitchBtn from './SwitchBtn';
 
 const useStyle = createStyles(({ css, token }) => {
   return {
@@ -112,13 +112,13 @@ const HeaderActions: React.FC<HeaderActionsProps> = (props) => {
         variant="borderless"
         defaultValue={pkg.version}
         onChange={handleVersionChange}
-        popupMatchSelectWidth={false}
-        options={versionOptions}
         styles={{
           popup: {
             root: getDropdownStyle,
           },
         }}
+        popupMatchSelectWidth={false}
+        options={versionOptions}
       />
     </Button>,
     <SwitchBtn

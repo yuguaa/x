@@ -1,8 +1,8 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { act } from '../../../tests/utils';
-import SlotTextArea from '../SlotTextArea';
 import Sender, { SlotConfigType } from '../index';
+import SlotTextArea from '../SlotTextArea';
 
 describe('Sender.SlotTextArea', () => {
   const slotConfig: SlotConfigType[] = [

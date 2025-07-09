@@ -122,7 +122,7 @@ export default () => {
                 },
               ]}
             />
-            <Divider type="vertical" style={{ height: '100%' }} />
+            <Divider orientation="vertical" style={{ height: '100%' }} />
             <Flex justify="space-between" vertical style={{ flex: 1 }} gap={8}>
               <Prompts
                 title="Do you want?"

@@ -1,6 +1,6 @@
 import { Sender, type SenderProps } from '@ant-design/x';
 import { App, Button, Flex, Slider } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 type SlotConfig = SenderProps['slotConfig'];
 
