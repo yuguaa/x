@@ -46,10 +46,14 @@
       },
       "complexity": {
         "noUselessTypeConstraint": "off",
-        "noForEach": "off"
+        "noForEach": "off",
+        "useDateNow": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "useHookAtTopLevel": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off"
       },
       "suspicious": {
         "noGlobalIsNan": "off",
@@ -57,21 +61,30 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noConfusingVoidType": "off",
-        "noThenProperty": "off"
+        "noThenProperty": "off",
+        "noTemplateCurlyInString": "off"
       },
       "performance": {
         "noDelete": "off",
-        "noAccumulatingSpread": "off"
+        "noAccumulatingSpread": "off",
+        "noDynamicNamespaceImportAccess": "off"
       },
       "a11y": {
         "noAriaHiddenOnFocusable": "off",
-        "useSemanticElements": "off",
+        "noLabelWithoutControl": "off",
+        "useFocusableInteractive": "off",
         "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off",
         "noStaticElementInteractions": "off"
       },
       "nursery": {
         "useUniqueElementIds": "off"
       }
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
     }
   },
   "overrides": [
