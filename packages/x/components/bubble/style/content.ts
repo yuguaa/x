@@ -1,18 +1,11 @@
-import { unit } from '@ant-design/cssinjs';
-import type { BubbleToken } from '.';
 import type { GenerateStyle } from '../../theme/cssinjs-utils';
+import type { BubbleToken } from './bubble';
 
 export const genVariantStyle: GenerateStyle<BubbleToken> = (token) => {
-  const { componentCls, paddingSM, padding } = token;
+  const { componentCls } = token;
   return {
     [componentCls]: {
       [`${componentCls}-content`]: {
-        // Shared: filled, outlined, shadow
-        '&-filled,&-outlined,&-shadow': {
-          padding: `${unit(paddingSM)} ${unit(padding)}`,
-          borderRadius: token.borderRadiusLG,
-        },
-
         // Filled:
         '&-filled': {
           backgroundColor: token.colorFillContent,
@@ -26,6 +19,12 @@ export const genVariantStyle: GenerateStyle<BubbleToken> = (token) => {
         // Shadow:
         '&-shadow': {
           boxShadow: token.boxShadowTertiary,
+        },
+
+        '&-borderless': {
+          backgroundColor: 'transparent',
+          padding: 0,
+          minHeight: 0,
         },
       },
     },
@@ -42,7 +41,11 @@ export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
   return {
     [componentCls]: {
       [contentCls]: {
-        // round:
+        '&-default': {
+          // 12px
+          borderRadius: calc(token.borderRadius).mul(2).equal(),
+        },
+
         '&-round': {
           borderRadius: {
             _skip_check_: true,
@@ -50,13 +53,17 @@ export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
           },
           paddingInline: calc(padding).mul(1.25).equal(),
         },
+
+        '&-corner': {
+          borderRadius: calc(token.borderRadius).mul(2).equal(),
+        },
       },
 
-      // corner:
-      [`&-start ${contentCls}-corner`]: {
+      [`&-start ${componentCls}-content-corner`]: {
         borderStartStartRadius: token.borderRadiusXS,
       },
-      [`&-end ${contentCls}-corner`]: {
+
+      [`&-end ${componentCls}-content-corner`]: {
         borderStartEndRadius: token.borderRadiusXS,
       },
     },

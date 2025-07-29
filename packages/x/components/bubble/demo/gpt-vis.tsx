@@ -19,7 +19,7 @@ const LineCompt = (props: LineProps) => {
   return <Line data={JSON.parse(data || '')} axisXTitle={axisXTitle} axisYTitle={axisYTitle} />;
 };
 
-const RenderMarkdown: BubbleProps['messageRender'] = (content) => (
+const RenderMarkdown: BubbleProps['contentRender'] = (content) => (
   <XMarkdown components={{ line: LineCompt }}>{content}</XMarkdown>
 );
 
@@ -37,15 +37,7 @@ const App = () => {
         Re-Render
       </Button>
 
-      <Bubble
-        typing={{ step: 20, interval: 150 }}
-        content={text}
-        messageRender={RenderMarkdown}
-        avatar={{
-          src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2Q5LRJ3LFPUAAAAAAAAAAAAADmJ7AQ/fmt.webp',
-        }}
-        variant="outlined"
-      />
+      <Bubble content={text} contentRender={RenderMarkdown} variant="outlined" />
     </Flex>
   );
 };
