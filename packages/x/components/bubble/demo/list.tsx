@@ -1,6 +1,7 @@
-import { AntDesignOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
+import { AntDesignOutlined, CopyOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
 import { Bubble } from '@ant-design/x';
 import type { BubbleData, BubbleListProps } from '@ant-design/x/es/bubble';
+import XMarkdown from '@ant-design/x-markdown';
 import type { GetRef } from 'antd';
 import { Avatar, Button, Divider, Flex, Typography } from 'antd';
 import React, { useCallback, useEffect } from 'react';
@@ -11,13 +12,20 @@ const getKey = () => `bubble_${id++}`;
 
 const genItem = (isAI: boolean, config?: Partial<BubbleData>) => {
   return {
-    ...config,
     key: getKey(),
     role: isAI ? 'ai' : 'user',
     content: `${id} : ${isAI ? 'Mock AI content'.repeat(50) : 'Mock user content.'}`,
+    ...config,
     // cache: true,
   };
 };
+
+const text = `
+> Render as markdown content to show rich text!
+
+Link: [Ant Design X](https://x.ant.design)
+`.trim();
+
 function useBubbleList(initialItems: BubbleData[] = []) {
   const [items, setItems] = React.useState<BubbleData[]>(initialItems);
 
@@ -46,7 +54,8 @@ const App = () => {
         typing: true,
         components: {
           header: 'AI',
-          sider: { major: () => <Avatar icon={<AntDesignOutlined />} /> },
+          avatar: () => <Avatar icon={<AntDesignOutlined />} />,
+          footer: <CopyOutlined />,
         },
       },
       user: {
@@ -54,7 +63,7 @@ const App = () => {
         typing: false,
         components: {
           header: 'User',
-          sider: { major: () => <Avatar icon={<UserOutlined />} /> },
+          avatar: () => <Avatar icon={<UserOutlined />} />,
         },
       },
       divider: {
@@ -92,6 +101,23 @@ const App = () => {
             }}
           >
             Add Bubble
+          </Button>
+          <Button
+            onClick={() => {
+              appendItem({
+                key: getKey(),
+                role: 'ai',
+                typing: { effect: 'fade-in', step: [30, 50] },
+                content: text,
+                contentRender: (content) => (
+                  <Typography>
+                    <XMarkdown content={content as string} />
+                  </Typography>
+                ),
+              });
+            }}
+          >
+            Add Markdown Msg
           </Button>
           <Button
             onClick={() => {
