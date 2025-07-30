@@ -39,7 +39,7 @@ export const TypingContent: React.FC<{
       })}
     >
       {elements}
-      {suffix}
+      {effect === 'typing' && suffix}
     </div>
   );
 };

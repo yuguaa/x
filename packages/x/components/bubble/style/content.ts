@@ -32,9 +32,11 @@ export const genVariantStyle: GenerateStyle<BubbleToken> = (token) => {
 };
 
 export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
-  const { componentCls, fontSize, lineHeight, paddingSM, padding, calc } = token;
+  const { componentCls, fontSize, lineHeight, paddingSM, padding, borderRadius, calc } = token;
 
   const halfRadius = calc(fontSize).mul(lineHeight).div(2).add(paddingSM).equal();
+  // 12px
+  const defaultRadius = calc(borderRadius).mul(2).equal();
 
   const contentCls = `${componentCls}-content`;
 
@@ -42,8 +44,10 @@ export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
     [componentCls]: {
       [contentCls]: {
         '&-default': {
-          // 12px
-          borderRadius: calc(token.borderRadius).mul(2).equal(),
+          borderRadius: {
+            _skip_check_: true,
+            value: defaultRadius,
+          },
         },
 
         '&-round': {
@@ -55,7 +59,10 @@ export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
         },
 
         '&-corner': {
-          borderRadius: calc(token.borderRadius).mul(2).equal(),
+          borderRadius: {
+            _skip_check_: true,
+            value: defaultRadius,
+          },
         },
       },
 

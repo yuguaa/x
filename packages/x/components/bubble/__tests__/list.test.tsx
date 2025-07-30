@@ -119,6 +119,44 @@ describe('Bubble.List', () => {
       expect(bubbles[0]).toHaveClass('ant-bubble-start'); // ai role
     });
 
+    it('应该支持 role 为空', () => {
+      const { container } = render(<BubbleList items={mockItems} />);
+      const bubbles = container.querySelectorAll('.ant-bubble');
+
+      // autoScroll 启用情况下，数据渲染是倒序的
+      expect(bubbles[1]).toHaveClass('ant-bubble-start'); // user role
+      expect(bubbles[0]).toHaveClass('ant-bubble-start'); // ai role
+    });
+
+    it('应该支持 items 不配置 role 属性', () => {
+      const roleConfig = {
+        user: {
+          placement: 'end' as const,
+        },
+      };
+
+      const itemsWithOverride: BubbleData[] = [
+        {
+          key: 'item1',
+          role: 'user',
+          content: '用户消息',
+          placement: 'start', // 覆盖 role 配置
+        },
+        {
+          key: 'item1',
+          content: '消息',
+          placement: 'end', // 覆盖 role 配置
+        },
+      ];
+
+      const { container } = render(<BubbleList items={itemsWithOverride} role={roleConfig} />);
+      const bubbles = container.querySelectorAll('.ant-bubble');
+
+      expect(bubbles.length).toBe(2);
+      expect(bubbles[1].textContent).toBe('用户消息'); // user role
+      expect(bubbles[0].textContent).toBe('消息');
+    });
+
     it('应该支持 items 中的属性覆盖 role 配置', () => {
       const roleConfig = {
         user: {
@@ -274,7 +312,7 @@ describe('Bubble.List', () => {
 
     it('应该支持通过 ref.scrollTo 快速滚动到顶部或底部', () => {
       const ref = React.createRef<BubbleListRef>();
-      const { container } = render(<BubbleList items={mockItems} ref={ref} />);
+      const { container, rerender } = render(<BubbleList items={mockItems} ref={ref} />);
       const listElement = container.querySelector('.ant-bubble-list') as HTMLDivElement;
 
       // 确保 listElement 有 scrollTo 方法
@@ -289,6 +327,18 @@ describe('Bubble.List', () => {
         ref.current!.scrollTo({ top: 'top' });
       });
       expect(mockScrollTo).toHaveBeenCalledWith({ top: -1000, behavior: 'smooth' });
+
+      rerender(<BubbleList items={mockItems} ref={ref} autoScroll={false} />);
+
+      act(() => {
+        ref.current!.scrollTo({ top: 'bottom' });
+      });
+      expect(mockScrollTo).toHaveBeenCalledWith({ top: 1000, behavior: 'smooth' });
+
+      act(() => {
+        ref.current!.scrollTo({ top: 'top' });
+      });
+      expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
     });
 
     it('应该支持通过 ref.scrollTo 滚动到指定 key 的元素', () => {

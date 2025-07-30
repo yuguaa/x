@@ -5,7 +5,8 @@ import React from 'react';
 
 const App = () => (
   <Bubble
-    content="Hello World"
+    content="Hello World-111"
+    typing={{ effect: 'fade-in', suffix: '...' }}
     components={{
       header: <h5>Ant Design X</h5>,
       footer: (

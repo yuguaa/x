@@ -7,14 +7,14 @@ import React, { useCallback, useEffect } from 'react';
 
 let id = 0;
 
-const getKey = () => 'bubble_' + id++;
+const getKey = () => `bubble_${id++}`;
 
 const genItem = (isAI: boolean, config?: Partial<BubbleData>) => {
   return {
     ...config,
     key: getKey(),
     role: isAI ? 'ai' : 'user',
-    content: id + ' : ' + (isAI ? 'Mock AI content. '.repeat(50) : 'Mock user content.'),
+    content: `${id} : ${isAI ? 'Mock AI content'.repeat(50) : 'Mock user content.'}`,
     // cache: true,
   };
 };

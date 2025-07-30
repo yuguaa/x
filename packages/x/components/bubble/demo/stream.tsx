@@ -92,7 +92,10 @@ const App = () => {
       },
       // 动画函数的更新会使得动画重新触发，应该保证动画函数稳定。
       onTyping: () => console.log('typing'),
-      onTypingComplete: () => (setCount((c) => c + 1), console.log('typing complete')),
+      onTypingComplete: () => {
+        setCount((c) => c + 1);
+        console.log('typing complete');
+      },
     }),
     [],
   );

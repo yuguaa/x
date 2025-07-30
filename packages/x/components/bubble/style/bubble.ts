@@ -40,9 +40,6 @@ const fadeIn = new Keyframes('fadeIn', {
   },
 });
 
-// biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
-export interface ComponentToken {}
-
 export interface BubbleToken extends FullToken<'Bubble'> {}
 
 const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
@@ -76,7 +73,7 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
         wordBreak: 'break-word',
       },
 
-      [`&-typing:last-child::after`]: {
+      '&-typing:last-child::after': {
         content: '"|"',
         fontWeight: 900,
         userSelect: 'none',
@@ -88,7 +85,7 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
         animationTimingFunction: 'linear',
       },
 
-      [`&-fade-in .fade-in`]: {
+      '&-fade-in .fade-in': {
         display: 'inline',
         animationName: fadeIn,
         animationDuration: '1s',
@@ -125,7 +122,7 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
       },
 
       // ======================== placement ============================
-      [`&-start`]: {
+      '&-start': {
         flexDirection: 'row',
 
         [`& ${componentCls}-header`]: {
@@ -133,7 +130,7 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
         },
       },
 
-      [`&-end`]: {
+      '&-end': {
         flexDirection: 'row-reverse',
         justifySelf: 'flex-end',
 

@@ -24,11 +24,11 @@ const genBubbleListStyle: GenerateStyle<BubbleToken> = (token) => {
       },
 
       [`& ${componentCls}-start`]: {
-        marginRight: '15%',
+        marginInlineEnd: '15%',
       },
 
       [`& ${componentCls}-end`]: {
-        marginLeft: '15%',
+        marginInlineStart: '15%',
       },
     },
 

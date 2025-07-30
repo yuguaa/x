@@ -7,6 +7,9 @@ import genBubbleListStyle from './list';
 import { genSlotStyle } from './slot';
 export const prepareComponentToken: GetDefaultToken<'Bubble'> = () => ({});
 
+// biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
+export interface ComponentToken {}
+
 export default genStyleHooks<'Bubble'>(
   'Bubble',
   (token) => {

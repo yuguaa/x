@@ -87,7 +87,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (
     [content, contentRender],
   );
 
-  const usingInnerAnimation = typing && typeof memoedContent === 'string';
+  const usingInnerAnimation = !!typing && typeof memoedContent === 'string';
 
   /**
    * 1、启用内置动画的情况下，由 TypingContent 来负责通知。
@@ -119,7 +119,9 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (
         ) : (
           memoedContent
         )}
-        {!usingInnerAnimation && (typing as BubbleAnimationOption)?.suffix
+        {!usingInnerAnimation &&
+        (typing as BubbleAnimationOption)?.effect === 'typing' &&
+        (typing as BubbleAnimationOption)?.suffix
           ? (typing as BubbleAnimationOption).suffix
           : null}
       </>
@@ -187,7 +189,7 @@ const Bubble: React.ForwardRefRenderFunction<BubbleRef, BubbleProps> = (
   };
 
   const renderHeader = () => {
-    if (!components?.['header']) return null;
+    if (!components?.header) return null;
     return (
       <div className={getSlotClassName('header')} style={getSlotStyle('header')}>
         {renderSlot(components.header)}

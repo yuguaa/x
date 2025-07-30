@@ -317,10 +317,42 @@ describe('bubble', () => {
         effect: 'typing',
         suffix,
       };
-
-      const { container } = render(<Bubble content="测试" typing={typingConfig} />);
-
+      const { container, rerender } = render(<Bubble content="测试" typing={typingConfig} />);
       expect(container.querySelector('.typing-cursor')).toBeInTheDocument();
+
+      rerender(
+        <Bubble
+          content="测试"
+          typing={typingConfig}
+          contentRender={(content) => <div>{content}</div>}
+        />,
+      );
+      expect(container.querySelector('.typing-cursor')).toBeInTheDocument();
+    });
+
+    it('应该在淡入模式下不渲染打字机后缀', async () => {
+      const suffix = <span className="typing-cursor">|</span>;
+
+      const { container, rerender } = render(
+        <Bubble
+          content="测试"
+          typing={{ effect: 'typing', suffix }}
+          contentRender={(content) => <div>{content}</div>}
+        />,
+      );
+      expect(container.querySelector('.typing-cursor')).toBeInTheDocument();
+
+      rerender(<Bubble content="测试" typing={{ effect: 'fade-in', suffix }} />);
+      expect(container.querySelector('.typing-cursor')).not.toBeInTheDocument();
+
+      rerender(
+        <Bubble
+          content="测试"
+          typing={{ effect: 'fade-in', suffix }}
+          contentRender={() => <div>测试</div>}
+        />,
+      );
+      expect(container.querySelector('.typing-cursor')).not.toBeInTheDocument();
     });
 
     it('应该支持从公共前缀处开始输出', async () => {
@@ -603,7 +635,7 @@ describe('bubble', () => {
       expect(onTypingComplete).not.toHaveBeenCalled();
       expect(contentElement.innerText).toBe(firstString);
 
-      const doneText = firstString + '-内容2内容2-完成';
+      const doneText = `${firstString}-内容2内容2-完成`;
       // 结束流式输入，应触发
       rerender(
         <Bubble content={doneText} typing onTypingComplete={onTypingComplete} streaming={false} />,

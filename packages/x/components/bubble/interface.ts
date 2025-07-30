@@ -121,10 +121,10 @@ export type BubbleData = BubbleProps<BubbleContentType> & {
   /**
    * @description Bubble.List.role key 映射
    */
-  role: RemainRole | AnyStr;
+  role?: RemainRole | AnyStr;
 };
 
-type RoleType = Pick<
+export type RoleType = Pick<
   BubbleData,
   | 'typing'
   | 'variant'

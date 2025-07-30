@@ -82,8 +82,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
   // ============================ Scroll ============================
   // Always scroll to bottom when data change
   React.useEffect(() => {
-    listRef.current &&
-      listRef.current.scrollTo({ top: autoScroll ? 0 : listRef.current.scrollHeight });
+    listRef.current?.scrollTo({ top: autoScroll ? 0 : listRef.current.scrollHeight });
   }, [items.length, autoScroll]);
 
   // ========================== Ref ===========================
@@ -99,7 +98,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
             behavior,
           });
         } else if (top === 'bottom') {
-          const bottomOffset = autoScroll ? 0 : -scrollHeight;
+          const bottomOffset = autoScroll ? 0 : scrollHeight;
           listRef.current?.scrollTo({ top: bottomOffset, behavior });
         } else if (top === 'top') {
           const topOffset = autoScroll ? -scrollHeight : 0;
@@ -124,7 +123,7 @@ const BubbleList: React.ForwardRefRenderFunction<BubbleListRef, BubbleListProps>
       onScroll={onScroll}
     >
       {renderData.map((item) => {
-        const mergedProps = { ...role?.[item.role], ...item };
+        const mergedProps = item.role ? { ...role?.[item.role], ...item } : item;
         return (
           <BubbleListItem
             {...omit(mergedProps, ['key'])}
