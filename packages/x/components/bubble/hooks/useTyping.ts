@@ -54,7 +54,7 @@ export function useTyping({
     if (typing === true) return baseCfg;
     // exclude undefined value
     const { step = 6, interval = 100 } = typing;
-    const isNumber = (num: any) => typeof num === 'number';
+    const isNumber = (num: any): num is number => typeof num === 'number';
     if (!isNumber(interval) || interval <= 0) {
       throw '[Bubble] invalid prop typing.interval, expect positive number.';
     }
