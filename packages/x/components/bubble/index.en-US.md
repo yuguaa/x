@@ -50,9 +50,9 @@ Common Props Reference: [Common Props](/docs/react/common-props)
 | placement | Bubble Location | `start` \| `end` | `start` | - | 
 | loading | Load Status | boolean | - | - | 
 | loadingRender | Custom loading content rendering | () => React.ReactNode | - | - | 
-| content | Bubble Contents | [ContentType] (#contenttype) | - | - | 
+| content | Bubble Contents | [ContentType](#contenttype) | - | - | 
 | contentRender | Custom content rendering | (content: ContentType) => React.ReactNode | - | - | 
-| typing | Typing Animation Effects | boolean \| [BubbleAnimationOption] (#bubbleanimationoption) | `false` | - | 
+| typing | Typing Animation Effects | boolean \| [BubbleAnimationOption](#bubbleanimationoption) | `false` | - | 
 | streaming | Whether it is streaming | boolean | `false` | - | 
 | variant | Bubble style variants | `filled` \| `outlined` \| `shadow` \| `borderless` | `filled` | - | 
 | shape | Bubble Shape | `default` \| `round` \| `corner` | `default` | - | 

@@ -4,4 +4,4 @@
 
 ## en-US
 
-Animation effect. It only works if 'content' is a string or 'contentRender' renders a string. Non-string scenes require custom rendering animations. When it takes effect, if 'content' remains unchanged and other configurations change, the animation does not re-execute.
+Animation effect. It only works if `content` is a string or `contentRender` renders a string. Non-string scenes require custom rendering animations. When it takes effect, if `content` remains unchanged and other configurations change, the animation does not re-execute.
