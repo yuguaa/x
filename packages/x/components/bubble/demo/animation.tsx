@@ -1,11 +1,24 @@
-import { RedoOutlined, UserOutlined } from '@ant-design/icons';
-import { Bubble } from '@ant-design/x';
-import { Avatar, Button, Divider, Flex, Radio, Space, Switch } from 'antd';
+import { CopyOutlined, RedoOutlined, UserOutlined } from '@ant-design/icons';
+import { Actions, Bubble } from '@ant-design/x';
+import { Avatar, Button, Divider, Flex, Radio, Switch } from 'antd';
 import React, { useState } from 'react';
 
 const text = 'Ant Design X - Better UI toolkit for your AI Chat WebApp. '.repeat(5);
 
 const text2 = 'Ant Design X - Build your AI Chat WebApp with an easier way. '.repeat(5);
+
+const actionItems = [
+  {
+    key: 'retry',
+    icon: <RedoOutlined />,
+    label: 'Retry',
+  },
+  {
+    key: 'copy',
+    icon: <CopyOutlined />,
+    label: 'Copy',
+  },
+];
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -51,10 +64,8 @@ const App = () => {
           typing={{ effect, interval: 50, step: 3, keepPrefix }}
           components={{
             header: <h5>ADX</h5>,
-            footer: (
-              <Space>
-                <RedoOutlined />
-              </Space>
+            footer: (content) => (
+              <Actions items={actionItems} onClick={() => console.log(content)} />
             ),
             avatar: <Avatar icon={<UserOutlined />} />,
           }}

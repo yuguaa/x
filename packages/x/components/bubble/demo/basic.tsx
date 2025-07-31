@@ -1,19 +1,28 @@
-import { AntDesignOutlined, EditOutlined } from '@ant-design/icons';
-import { Bubble } from '@ant-design/x';
-import { Avatar, Space } from 'antd';
+import { AntDesignOutlined, CopyOutlined, RedoOutlined } from '@ant-design/icons';
+import { Actions, Bubble } from '@ant-design/x';
+import { Avatar } from 'antd';
 import React from 'react';
+
+const actionItems = [
+  {
+    key: 'retry',
+    icon: <RedoOutlined />,
+    label: 'Retry',
+  },
+  {
+    key: 'copy',
+    icon: <CopyOutlined />,
+    label: 'Copy',
+  },
+];
 
 const App = () => (
   <Bubble
-    content="Hello World-111"
+    content="Hello World"
     typing={{ effect: 'fade-in', suffix: '...' }}
     components={{
       header: <h5>Ant Design X</h5>,
-      footer: (
-        <Space>
-          <EditOutlined />
-        </Space>
-      ),
+      footer: (content) => <Actions items={actionItems} onClick={() => console.log(content)} />,
       avatar: <Avatar icon={<AntDesignOutlined />} />,
     }}
   />

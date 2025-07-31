@@ -30,6 +30,7 @@ demo:
 <code src="./demo/custom-content.tsx">自定义渲染内容</code>
 <code src="./demo/markdown.tsx">渲染markdown内容</code>
 <code src="./demo/list.tsx">气泡列表</code>
+<code src="./demo/list-ref.tsx">气泡列表 Ref</code>
 <code src="./demo/semantic-list-custom.tsx">语义化自定义</code>
 <code src="./demo/gpt-vis.tsx">使用 GPT-Vis 渲染图表</code>
 
@@ -61,7 +62,16 @@ demo:
 | onTyping | 动画执行回调 | (rendererContent: string, currentContent: string) => void | - | - | 
 | onTypingComplete | 动画结束回调 | (content: string) => void | - | - |
 
-### BubbleList 组件 API
+#### streaming
+
+`streaming` 用于通知 Bubble 当前的 `content` 是否属于流式输入的当处于流式传输模。当处于流式传输模式，无论是否启用 Bubble 输入动画，在 `streaming` 变为 `false` 之前，Bubble 不会因为把当前 `content` 全部输出完毕就触发 `onTypingComplete` 回调，只有当 `streaming` 变为 `false`，且 `content` 全部输出完毕后，Bubble 才会触发 `onTypingComplete` 回调。这样可以避免由于流式传输不稳定而导致多次触发 `onTypingComplete` 回调的问题，保证一次流式传输过程仅触发一次 `onTypingComplete`。
+
+在[这个例子](#bubble-demo-stream)中，你可以尝试强制关闭流式标志，同时
+
+- 若你启用了输入动画，进行 **慢速加载** 时，会因为流式传输的速度跟不上动画速度而导致多次触发 `onTypingComplete`。
+- 若你关闭了输入动画，每一次的流式输入都会触发 `onTypingComplete`。
+
+### Bubble.List 组件 API
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

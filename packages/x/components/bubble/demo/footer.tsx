@@ -1,7 +1,20 @@
-import { EditOutlined, RedoOutlined, ScissorOutlined, UserOutlined } from '@ant-design/icons';
-import { Bubble } from '@ant-design/x';
-import { Avatar, Flex, Space } from 'antd';
+import { CopyOutlined, RedoOutlined, UserOutlined } from '@ant-design/icons';
+import { Actions, Bubble } from '@ant-design/x';
+import { Avatar, Flex } from 'antd';
 import React from 'react';
+
+const actionItems = [
+  {
+    key: 'retry',
+    icon: <RedoOutlined />,
+    label: 'Retry',
+  },
+  {
+    key: 'copy',
+    icon: <CopyOutlined />,
+    label: 'Copy',
+  },
+];
 
 const App = () => (
   <Flex vertical gap="small">
@@ -12,12 +25,8 @@ const App = () => (
           components={{
             header: 'footer',
             avatar: <Avatar icon={<UserOutlined />} />,
-            footer: (
-              <Space>
-                <EditOutlined />
-                <ScissorOutlined />
-                <RedoOutlined />
-              </Space>
+            footer: (content) => (
+              <Actions items={actionItems} onClick={() => console.log(content)} />
             ),
           }}
         />
@@ -32,12 +41,8 @@ const App = () => (
           components={{
             header: 'footer',
             avatar: <Avatar icon={<UserOutlined />} />,
-            footer: (
-              <Space>
-                <EditOutlined />
-                <ScissorOutlined />
-                <RedoOutlined />
-              </Space>
+            footer: (content) => (
+              <Actions items={actionItems} onClick={() => console.log(content)} />
             ),
           }}
         />
@@ -51,12 +56,8 @@ const App = () => (
           components={{
             header: 'footer',
             avatar: <Avatar icon={<UserOutlined />} />,
-            footer: (
-              <Space>
-                <EditOutlined />
-                <ScissorOutlined />
-                <RedoOutlined />
-              </Space>
+            footer: (content) => (
+              <Actions items={actionItems} onClick={() => console.log(content)} />
             ),
           }}
         />
@@ -71,12 +72,8 @@ const App = () => (
           components={{
             header: 'footer',
             avatar: <Avatar icon={<UserOutlined />} />,
-            footer: (
-              <Space>
-                <EditOutlined />
-                <ScissorOutlined />
-                <RedoOutlined />
-              </Space>
+            footer: (content) => (
+              <Actions items={actionItems} onClick={() => console.log(content)} />
             ),
           }}
         />

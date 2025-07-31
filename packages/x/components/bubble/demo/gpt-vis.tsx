@@ -24,20 +24,35 @@ const RenderMarkdown: BubbleProps['contentRender'] = (content) => (
 );
 
 const App = () => {
-  const [rerenderKey, setRerenderKey] = React.useState(0);
+  const [index, setIndex] = React.useState(text.length);
+  const timer = React.useRef<any>(-1);
+
+  const renderStream = () => {
+    if (index >= text.length) {
+      clearTimeout(timer.current);
+      return;
+    }
+    timer.current = setTimeout(() => {
+      setIndex((prev) => prev + 5);
+      renderStream();
+    }, 20);
+  };
+
+  React.useEffect(() => {
+    if (index === text.length) return;
+    renderStream();
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, [index]);
 
   return (
-    <Flex vertical gap="small" key={rerenderKey}>
-      <Button
-        style={{ alignSelf: 'flex-end' }}
-        onClick={() => {
-          setRerenderKey((prev) => prev + 1);
-        }}
-      >
+    <Flex vertical gap="small">
+      <Button style={{ alignSelf: 'flex-end' }} onClick={() => setIndex(1)}>
         Re-Render
       </Button>
 
-      <Bubble content={text} contentRender={RenderMarkdown} variant="outlined" />
+      <Bubble content={text.slice(0, index)} contentRender={RenderMarkdown} variant="outlined" />
     </Flex>
   );
 };

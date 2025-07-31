@@ -1,10 +1,29 @@
-import { AntDesignOutlined, CopyOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
-import { Bubble } from '@ant-design/x';
+import {
+  AntDesignOutlined,
+  CopyOutlined,
+  LinkOutlined,
+  RedoOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { Actions, Bubble } from '@ant-design/x';
 import type { BubbleData, BubbleListProps } from '@ant-design/x/es/bubble';
 import XMarkdown from '@ant-design/x-markdown';
 import type { GetRef } from 'antd';
 import { Avatar, Button, Divider, Flex, Typography } from 'antd';
 import React, { useCallback, useEffect } from 'react';
+
+const actionItems = [
+  {
+    key: 'retry',
+    icon: <RedoOutlined />,
+    label: 'Retry',
+  },
+  {
+    key: 'copy',
+    icon: <CopyOutlined />,
+    label: 'Copy',
+  },
+];
 
 let id = 0;
 
@@ -55,7 +74,7 @@ const App = () => {
         components: {
           header: 'AI',
           avatar: () => <Avatar icon={<AntDesignOutlined />} />,
-          footer: <CopyOutlined />,
+          footer: (content) => <Actions items={actionItems} onClick={() => console.log(content)} />,
         },
       },
       user: {

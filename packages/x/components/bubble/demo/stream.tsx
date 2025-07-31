@@ -1,6 +1,6 @@
-import { RedoOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Bubble, BubbleProps } from '@ant-design/x';
-import { Avatar, Button, Divider, Flex, Space, Switch, Typography } from 'antd';
+import { Avatar, Button, Divider, Flex, Switch, Typography } from 'antd';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const text = 'Ant Design X - Better UI toolkit for your AI Chat WebApp. '.repeat(5);
@@ -83,11 +83,6 @@ const App = () => {
     () => ({
       components: {
         header: <h5>ADX</h5>,
-        footer: (
-          <Space>
-            <RedoOutlined />
-          </Space>
-        ),
         avatar: <Avatar icon={<UserOutlined />} />,
       },
       // 动画函数的更新会使得动画重新触发，应该保证动画函数稳定。
