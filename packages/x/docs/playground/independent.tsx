@@ -595,7 +595,7 @@ const Independent: React.FC = () => {
         loading={loading}
         className={styles.sender}
         allowSpeech
-        actions={(_, info) => {
+        suffix={(_, info) => {
           const { SendButton, LoadingButton, SpeechButton } = info.components;
           return (
             <Flex gap={4}>

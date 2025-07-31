@@ -469,7 +469,7 @@ const Copilot = (props: CopilotProps) => {
               />
             }
             onPasteFile={onPasteFile}
-            actions={(_, info) => {
+            suffix={(_, info) => {
               const { SendButton, LoadingButton, SpeechButton } = info.components;
               return (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
