@@ -560,7 +560,7 @@ const Independent: React.FC = () => {
         />
       ) : (
         <Space
-          direction="vertical"
+          orientation="vertical"
           size={16}
           style={{ paddingInline: 'calc(calc(100% - 700px) /2)' }}
           className={styles.placeholder}
