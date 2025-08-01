@@ -701,13 +701,13 @@ Array [
     rel="preload"
   />,
   <div
-    class="ant-app"
+    class="ant-app css-var-«R0»"
   >
     <div
-      class="ant-flex ant-flex-align-stretch ant-flex-gap-middle ant-flex-vertical"
+      class="ant-flex css-var-«R0» ant-flex-align-stretch ant-flex-gap-middle ant-flex-vertical"
     >
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview css-var-«R0»"
       >
         <div
           class="ant-attachment-list-card-icon"
@@ -762,7 +762,7 @@ Array [
         </div>
       </div>
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview css-var-«R0»"
       >
         <div
           class="ant-attachment-list-card-icon"
@@ -817,7 +817,7 @@ Array [
         </div>
       </div>
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview css-var-«R0»"
       >
         <div
           class="ant-attachment-list-card-icon"
@@ -872,7 +872,7 @@ Array [
         </div>
       </div>
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview css-var-«R0»"
       >
         <div
           class="ant-attachment-list-card-icon"
@@ -927,7 +927,7 @@ Array [
         </div>
       </div>
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-overview css-var-«R0»"
       >
         <div
           class="ant-attachment-list-card-icon"
@@ -982,10 +982,10 @@ Array [
         </div>
       </div>
       <div
-        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-preview"
+        class="ant-attachment-list-card ant-attachment-list-card-status-done ant-attachment-list-card-type-preview css-var-«R0»"
       >
         <div
-          class="ant-image"
+          class="ant-image css-var-«R0» ant-image-css-var"
         >
           <img
             alt="preview"
@@ -993,10 +993,10 @@ Array [
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
           />
           <div
-            class="ant-image-mask"
+            class="ant-image-cover"
           >
             <div
-              class="ant-image-mask-info"
+              class="ant-image-cover-info"
             >
               <span
                 aria-label="eye"
