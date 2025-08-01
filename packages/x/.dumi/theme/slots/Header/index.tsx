@@ -112,7 +112,6 @@ const Header: React.FC = () => {
   let clientHeight = 1080;
   let innerHeight = 1080;
 
-
   if (typeof window !== 'undefined') {
     clientHeight = document.body.clientHeight
     innerHeight = window.innerHeight;
@@ -124,15 +123,12 @@ const Header: React.FC = () => {
 
   const isActionHidden = scrollY > 200;
 
-
   const sharedProps: SharedProps = {
     isZhCN: lang === 'cn',
     isRTL: direction === 'rtl',
     isMobile,
     isMini,
   };
-
-
 
   let content = null;
 
