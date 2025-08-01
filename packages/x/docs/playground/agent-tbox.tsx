@@ -643,14 +643,6 @@ const Independent: React.FC = () => {
         }}
         loading={loading}
         className={styles.sender}
-        actions={(_, info) => {
-          const { SendButton, LoadingButton } = info.components;
-          return (
-            <Flex gap={4}>
-              {loading ? <LoadingButton type="default" /> : <SendButton type="primary" />}
-            </Flex>
-          );
-        }}
         placeholder={t.askMeAnything}
       />
     </>
