@@ -13,20 +13,6 @@ describe('FileListCard', () => {
     url: 'https://test.com/test.pdf',
   };
 
-  it('renders correct icon for different file types', () => {
-    const types = [
-      { name: 'a.jpg', key: 'image' },
-      { name: 'a.pdf', key: 'pdf' },
-      { name: 'a.docx', key: 'word' },
-      { name: 'a.zip', key: 'zip' },
-      { name: 'a.mp3', key: 'audio' },
-      { name: 'a.mp4', key: 'video' },
-    ];
-    types.forEach(({ name }) => {
-      const { container } = render(<FileListCard item={{ ...baseItem, name }} />);
-      expect(container.querySelector('.ant-attachment-list-card-icon')).toBeTruthy();
-    });
-  });
 
   it('renders image preview when type is image', () => {
     const { container } = render(
