@@ -66,7 +66,7 @@ describe('FileListCard', () => {
 
   it('renders correct icon for different file types', () => {
 
-    const { container } = render(<FileListCard item={{ ...baseItem, name:'a.mp3' }} />);
+    const { container } = render(<FileListCard icon='excel' item={{ ...baseItem, name:'a.mp3' }} />);
       expect(container.querySelector('.ant-attachment-list-card-icon')).toBeTruthy();
 
   });
