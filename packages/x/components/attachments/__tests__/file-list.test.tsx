@@ -5,7 +5,7 @@ import React from 'react';
 import { Attachment } from '..';
 
 describe('FileListCard', () => {
-  const baseItem:Attachment = {
+  const baseItem: Attachment = {
     uid: '1',
     name: 'test.pdf',
     status: 'done',
@@ -63,4 +63,12 @@ describe('FileListCard', () => {
     expect(container.querySelector('[data-testid="custom-icon"]')).toBeTruthy();
     expect(container.querySelector('.ant-attachment-list-card')).toHaveStyle('color: red');
   });
+
+  it('renders correct icon for different file types', () => {
+
+    const { container } = render(<FileListCard item={{ ...baseItem, name:'a.mp3' }} />);
+      expect(container.querySelector('.ant-attachment-list-card-icon')).toBeTruthy();
+
+  });
 });
+
