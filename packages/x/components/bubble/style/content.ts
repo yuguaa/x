@@ -64,6 +64,24 @@ export const genShapeStyle: GenerateStyle<BubbleToken> = (token) => {
             value: defaultRadius,
           },
         },
+
+        '&-editing': {
+          'div:first-child': {
+            outline: 'none',
+          },
+
+          [`${componentCls}-editing-opts`]: {
+            marginBlockStart: token.marginSM,
+
+            'button:last-child': {
+              backgroundColor: token.colorBgContainer,
+
+              '&:hover': {
+                backgroundColor: token.colorBgLayout,
+              },
+            },
+          },
+        },
       },
 
       [`&-start ${componentCls}-content-corner`]: {

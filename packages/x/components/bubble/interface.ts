@@ -27,6 +27,21 @@ export interface BubbleAnimationOption {
   suffix?: React.ReactNode;
 }
 
+export interface EditableBubbleOption {
+  /**
+   * @description 是否可编辑，提供一个仅针对 content 为 string 的编辑应用场景
+   */
+  editing?: boolean;
+  /**
+   * @description 确认按钮
+   */
+  okText?: React.ReactNode;
+  /**
+   * @description 取消按钮
+   */
+  cancelText?: React.ReactNode;
+}
+
 export type BubbleSlot<ContentType> = React.ReactNode | ((content: ContentType) => React.ReactNode);
 
 export interface BubbleRef {
@@ -48,6 +63,10 @@ export interface BubbleProps<ContentType extends BubbleContentType = string>
   loadingRender?: () => React.ReactNode;
   content: ContentType;
   contentRender?: (content: ContentType) => React.ReactNode;
+  /**
+   * @description 是否可编辑，提供一个仅针对 content 为 string 的编辑应用场景
+   */
+  editable?: boolean | EditableBubbleOption;
   /**
    * @description 动画配置，仅在 content 为 string 或 contentRender 返回 string 时生效
    */
@@ -91,6 +110,14 @@ export interface BubbleProps<ContentType extends BubbleContentType = string>
    * @description 动画结束回调
    */
   onTypingComplete?: (content: string) => void;
+  /**
+   * @description 编辑态下内容变化时回调
+   */
+  onEditConfirm?: (content: string) => void;
+  /**
+   * @description 编辑态下内容变化时回调
+   */
+  onEditCancle?: () => void;
 }
 
 export interface BubbleListRef {
@@ -141,6 +168,11 @@ export type RoleProps = Pick<
   | 'contentRender'
   | 'footerPlacement'
   | 'components'
+  | 'editable'
+  | 'onTyping'
+  | 'onTypingComplete'
+  | 'onEditConfirm'
+  | 'onEditCancle'
 >;
 
 export type FuncRoleProps = (data: BubbleData) => RoleProps;
