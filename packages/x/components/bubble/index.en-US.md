@@ -28,6 +28,7 @@ Often used when chatting.
 <code src="./demo/stream.tsx">stream</code>
 <code src="./demo/custom-content.tsx" >custom rendered content</code>
 <code src="./demo/markdown.tsx">render the markdown content</code>
+<code src="./demo/editable.tsx">editable bubble</code>
 <code src="./demo/list.tsx" > Bubble.List</code>
 <code src="./demo/list-ref.tsx">Bubble.List Ref</code>
 <code src="./demo/semantic-list-custom.tsx">semantic customization</code>
@@ -52,6 +53,7 @@ Common Props Reference: [Common Props](/docs/react/common-props)
 | loadingRender | Custom loading content rendering | () => React.ReactNode | - | - | 
 | content | Bubble Contents | [ContentType](#contenttype) | - | - | 
 | contentRender | Custom content rendering | (content: ContentType) => React.ReactNode | - | - | 
+| editable | Whether bubble is editable | boolean | `false` | - | 
 | typing | Typing Animation Effects | boolean \| [BubbleAnimationOption](#bubbleanimationoption) | `false` | - | 
 | streaming | Whether it is streaming | boolean | `false` | - | 
 | variant | Bubble style variants | `filled` \| `outlined` \| `shadow` \| `borderless` | `filled` | - | 
@@ -60,6 +62,7 @@ Common Props Reference: [Common Props](/docs/react/common-props)
 | components | Expand Slot Configuration | { header?: [BubbleSlot](#bubbleslot); footer?: BubbleSlot; avatar?: BubbleSlot; extra?: BubbleSlot; } | - | - | 
 | onTyping | Animation Execution Callback | (rendererContent: string, currentContent: string) => void | - | - | 
 | onTypingComplete | Animation end callback | (content: string) => void | - | - |
+| onEditing | Editing callback | (content: string) => void | - | - |
 
 #### streaming
 
@@ -79,7 +82,7 @@ In [this example](#bubble-demo-stream), you can try to force the streaming flag 
 | rootStyle | Root Node Style | React.CSSProperties | - | - |
 | items | Bubble data list, `key`, `role` required | (BubbleProps & { key: string \| number, role: string }) [] | - | - |
 | autoScroll | Whether to auto-scroll | boolean | `true` | - |
-| role | Role default configuration | Partial<Record<`ai` \| `system` \| `user`, [RoleType](#roletype)>> & Record<string, RoleType> | - | - |
+| role | Role default configuration | [RoleType](#roletype) | - | - |
 
 #### ContentType
 
@@ -135,7 +138,7 @@ interface BubbleAnimationOption {
 #### RoleType
 
 ```typescript
-type RoleType = Pick<
+type RoleProps = Pick<
   BubbleProps,
   | 'typing'
   | 'variant'
@@ -153,6 +156,11 @@ type RoleType = Pick<
   | 'footerPlacement'
   | 'components'
 > & { key: string | number; role: string };
+
+export type FuncRoleProps = (data: BubbleData) => RoleProps;
+
+export type RoleType = Partial<Record<'ai' | 'system' | 'user', RoleProps | FuncRoleProps>> &
+  Record<string, RoleProps | FuncRoleProps>;
 ```
 
 ## Semantic DOM

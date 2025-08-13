@@ -1,6 +1,6 @@
 {
   "name": "x-mono",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.0",
   "private": true,
   "scripts": {
     "site": "npm run site --workspace packages/x && cp -rf packages/x/_site ./_site",
@@ -39,10 +39,6 @@
   "size-limit": [
     {
       "path": "./packages/x/dist/antdx.min.js",
-      "limit": "350 KiB"
-    },
-    {
-      "path": "./packages/x-card/dist/x-card.min.js",
       "limit": "350 KiB"
     },
     {

@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '../../../tests/utils';
 import React from 'react';
 import mountTest from '../../../tests/shared/mountTest';
 import rtlTest from '../../../tests/shared/rtlTest';
@@ -9,6 +9,12 @@ describe('Sender Component', () => {
   mountTest(() => <Sender />);
 
   rtlTest(() => <Sender />);
+
+  it('Sender supports ref', () => {
+    const ref = React.createRef<any>();
+    render(<Sender ref={ref} />);
+    expect(ref.current).not.toBeNull();
+  });
 
   it('loading state', () => {
     const { asFragment } = render(<Sender loading />);

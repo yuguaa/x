@@ -29,6 +29,7 @@ demo:
 <code src="./demo/stream.tsx">流式传输</code>
 <code src="./demo/custom-content.tsx">自定义渲染内容</code>
 <code src="./demo/markdown.tsx">渲染markdown内容</code>
+<code src="./demo/editable.tsx">可编辑气泡</code>
 <code src="./demo/list.tsx">气泡列表</code>
 <code src="./demo/list-ref.tsx">气泡列表 Ref</code>
 <code src="./demo/semantic-list-custom.tsx">语义化自定义</code>
@@ -53,6 +54,7 @@ demo:
 | loadingRender | 自定义加载内容渲染 | () => React.ReactNode | - | - | 
 | content | 气泡内容 | [ContentType](#contenttype) | - | - | 
 | contentRender | 自定义内容渲染 | (content: ContentType) => React.ReactNode | - | - | 
+| editable | 是否可编辑 | boolean | `false` | - | 
 | typing | 打字动画效果 | boolean \| [BubbleAnimationOption](#bubbleanimationoption) | `false` | - | 
 | streaming | 是否为流式传输 | boolean | `false` | - | 
 | variant | 气泡样式变体 | `filled` \| `outlined` \| `shadow` \| `borderless` | `filled` | - | 
@@ -61,6 +63,7 @@ demo:
 | components | 扩展槽位配置 | { header?: [BubbleSlot](#bubbleslot); footer?: BubbleSlot; avatar?: BubbleSlot; extra?: BubbleSlot; } | - | - | 
 | onTyping | 动画执行回调 | (rendererContent: string, currentContent: string) => void | - | - | 
 | onTypingComplete | 动画结束回调 | (content: string) => void | - | - |
+| onEditing | 编辑态下内容变化时回调 | (content: string) => void | - | - |
 
 #### streaming
 
@@ -80,7 +83,7 @@ demo:
 | rootStyle | 根节点样式 | React.CSSProperties | - | - |
 | items | 气泡数据列表，`key`，`role` 必填 | (BubbleProps & { key: string \| number, role: string })[] | - | - |
 | autoScroll | 是否自动滚动 | boolean | `true` | - |
-| role | 角色默认配置 | Partial<Record<`ai` \| `system` \| `user`, [RoleType](#roletype)>> & Record<string, RoleType> | - | - |
+| role | 角色默认配置 | [RoleType](#roletype) | - | - |
 
 #### ContentType
 
@@ -136,7 +139,7 @@ interface BubbleAnimationOption {
 #### RoleType
 
 ```typescript
-type RoleType = Pick<
+type RoleProps = Pick<
   BubbleProps,
   | 'typing'
   | 'variant'
@@ -154,6 +157,11 @@ type RoleType = Pick<
   | 'footerPlacement'
   | 'components'
 > & { key: string | number; role: string };
+
+export type FuncRoleProps = (data: BubbleData) => RoleProps;
+
+export type RoleType = Partial<Record<'ai' | 'system' | 'user', RoleProps | FuncRoleProps>> &
+  Record<string, RoleProps | FuncRoleProps>;
 ```
 
 ## Semantic DOM

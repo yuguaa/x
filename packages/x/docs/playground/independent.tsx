@@ -480,7 +480,7 @@ const Independent: React.FC = () => {
         />
       ) : (
         <Space
-          direction="vertical"
+          orientation="vertical"
           size={16}
           style={{ paddingInline: 'calc(calc(100% - 700px) /2)' }}
           className={styles.placeholder}
@@ -552,10 +552,10 @@ const Independent: React.FC = () => {
           type === 'drop'
             ? { title: 'Drop file here' }
             : {
-                icon: <CloudUploadOutlined />,
-                title: 'Upload files',
-                description: 'Click or drag files to this area to upload',
-              }
+              icon: <CloudUploadOutlined />,
+              title: 'Upload files',
+              description: 'Click or drag files to this area to upload',
+            }
         }
       />
     </Sender.Header>
@@ -595,15 +595,6 @@ const Independent: React.FC = () => {
         loading={loading}
         className={styles.sender}
         allowSpeech
-        suffix={(_, info) => {
-          const { SendButton, LoadingButton, SpeechButton } = info.components;
-          return (
-            <Flex gap={4}>
-              <SpeechButton className={styles.speechButton} />
-              {loading ? <LoadingButton type="default" /> : <SendButton type="primary" />}
-            </Flex>
-          );
-        }}
         placeholder="Ask or input / use skills"
       />
     </>
