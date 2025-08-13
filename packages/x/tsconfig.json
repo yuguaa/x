@@ -11,7 +11,7 @@
       "@ant-design/x-markdown": ["../x-markdown/src/index.ts"],
       "@ant-design/x-markdown/es/*": ["../x-markdown/src/*"],
       "@ant-design/x-markdown/lib/*": ["../x-markdown/src/*"],
-      "@ant-design/x-markdown/plugins/*": ["../x-markdown/src/plugins/*"]
+      "@ant-design/x-markdown/plugins/*": ["../x-markdown/plugins/*"]
     }
   },
   "include": [".dumirc.ts", "**/*"]

@@ -47,7 +47,7 @@ module.exports = {
     '^@ant-design/x-markdown$': '<rootDir>/../../packages/x-markdown/src/index',
     '^@ant-design/x-markdown/es/(.*)$': '<rootDir>/../../packages/x-markdown/src/$1',
     '^@ant-design/x-markdown/lib/(.*)$': '<rootDir>/../../packages/x-markdown/src/$1',
-    '^@ant-design/x-markdown/plugins/(.*)$': '<rootDir>/../../packages/x-markdown/src/plugins/$1',
+    '^@ant-design/x-markdown/plugins/(.*)$': '<rootDir>/../../packages/x-markdown/plugins/$1',
     '^@ant-design/x-card$': '<rootDir>/../../packages/x-card/src/index',
     '^@ant-design/x-sdk$': '<rootDir>/../../packages/x-sdk/src/index',
   },
