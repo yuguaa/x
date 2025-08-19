@@ -10,9 +10,7 @@ title: FAQ
 
 ## 如何使用 markdown 渲染？
 
-Ant Design X 支持 markdown 渲染，你可以通过配合 `markdown-it` 库来实现自定义的 markdown 内容渲染。
-
-在 Bubble 组件中，可以通过 `messageRender` 属性来自定义渲染方法：
+目前你可以通过配合 `markdown-it` 库来实现自定义的 markdown 内容渲染。在 Bubble 组件中，可以通过 `messageRender` 属性来自定义渲染方法：
 
 ```tsx
 import { Bubble } from '@ant-design/x';
@@ -39,6 +37,8 @@ const App = () => (
 
 更多详细示例请参考 [Bubble Markdown 示例](/components/bubble-cn#components-bubble-demo-markdown)。
 
+> **📢 即将到来**: Ant Design X 2.0 版本将内置 markdown 渲染支持，无需额外配置即可直接渲染 markdown 内容。
+
 ## 是否有 Vue 版本？
 
 目前 Ant Design X 只提供 React 版本。Ant Design X 是专为 React 框架设计的 AI 交互组件库，暂时没有 Vue 版本的计划。
@@ -47,9 +47,41 @@ const App = () => (
 
 ## 如何渲染 `<think>` 标签？
 
-`<think>` 标签通常用于 AI 思维链的场景。Ant Design X 提供了 `ThoughtChain` 组件来专门处理和可视化 AI 的思维过程。
+`<think>` 标签通常用于展示 AI 的思维过程。目前可以通过自定义消息转换来处理：
 
-你可以使用 ThoughtChain 组件来展示 AI 的思考步骤：
+```tsx
+// 参考 copilot.tsx 中的实现方式
+const transformMessage = (info) => {
+  const { originMessage, chunk } = info || {};
+  let currentContent = '';
+  let currentThink = '';
+  
+  // 解析 AI 响应中的思考内容
+  if (chunk?.data && !chunk?.data.includes('DONE')) {
+    const message = JSON.parse(chunk?.data);
+    currentThink = message?.choices?.[0]?.delta?.reasoning_content || '';
+    currentContent = message?.choices?.[0]?.delta?.content || '';
+  }
+
+  let content = '';
+  
+  if (!originMessage?.content && currentThink) {
+    content = `<think>${currentThink}`;
+  } else if (
+    originMessage?.content?.includes('<think>') &&
+    !originMessage?.content.includes('</think>') &&
+    currentContent
+  ) {
+    content = `${originMessage?.content}</think>${currentContent}`;
+  } else {
+    content = `${originMessage?.content || ''}${currentThink}${currentContent}`;
+  }
+
+  return { content, role: 'assistant' };
+};
+```
+
+你也可以使用 `ThoughtChain` 组件来展示结构化的思考步骤：
 
 ```tsx
 import { ThoughtChain } from '@ant-design/x';
@@ -74,7 +106,9 @@ const App = () => (
 );
 ```
 
-更多详细用法请参考 [ThoughtChain 组件文档](/components/thought-chain-cn)。
+更多实现方式可以参考 [Copilot 示例](https://github.com/ant-design/x/blob/main/docs/playground/copilot.tsx) 和 [ThoughtChain 组件文档](/components/thought-chain-cn)。
+
+> **📢 即将到来**: Ant Design X 2.0 版本将新增 Think 组件，专门用于展示 AI 思考过程，提供更便捷的思维链渲染方案。
 
 ## 如何适配移动端？
 
