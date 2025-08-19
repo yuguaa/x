@@ -5,10 +5,13 @@ import useProxyImperativeHandle from '../_util/hooks/use-proxy-imperative-handle
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import ActionsFeedback from './ActionsFeedback';
+import ActionsCopy from './ActionsCopy';
+import ActionsItem from './ActionsItem';
 import { ActionsContext } from './context';
 import Item from './Item';
 import type { ActionsProps } from './interface';
 import useStyle from './style';
+import ActionsAudio from './ActionsAudio';
 
 type ActionsRef = {
   nativeElement: HTMLDivElement;
@@ -17,7 +20,6 @@ const ForwardActions = React.forwardRef<ActionsRef, ActionsProps>((props, ref) =
   const {
     items = [],
     onClick,
-    footer,
     dropdownProps = {},
     variant = 'borderless',
     prefixCls: customizePrefixCls,
@@ -93,12 +95,6 @@ const ForwardActions = React.forwardRef<ActionsRef, ActionsProps>((props, ref) =
             return <Item item={item} onClick={onClick} dropdownProps={dropdownProps} key={idx} />;
           })}
         </div>
-
-        {footer && (
-          <div className={classNames.footer} style={styles.footer}>
-            {footer}
-          </div>
-        )}
       </ActionsContext.Provider>
     </div>
   );
@@ -106,6 +102,9 @@ const ForwardActions = React.forwardRef<ActionsRef, ActionsProps>((props, ref) =
 
 type CompoundedActions = typeof ForwardActions & {
   Feedback: typeof ActionsFeedback;
+  Copy: typeof ActionsCopy;
+  Item: typeof ActionsItem;
+  Audio:typeof ActionsAudio;
 };
 
 const Actions = ForwardActions as CompoundedActions;
@@ -115,5 +114,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 Actions.Feedback = ActionsFeedback;
+Actions.Copy = ActionsCopy;
+Actions.Item = ActionsItem;
+Actions.Audio=  ActionsAudio;
 
 export default Actions;
