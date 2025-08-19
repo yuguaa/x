@@ -108,7 +108,7 @@ const App = () => (
 
 For more implementation approaches, please refer to [Copilot Example](https://github.com/ant-design/x/blob/main/docs/playground/copilot.tsx) and [ThoughtChain Component Documentation](/components/thought-chain).
 
-> **📢 Coming Soon**: Ant Design X 2.0 will introduce a new Think component specifically for displaying AI thinking processes, providing a more convenient solution for rendering thought chains.
+> **📢 Coming Soon**: Ant Design X 2.0 will introduce a new Think component specifically for displaying AI thinking processes, providing a more convenient solution for rendering thought chains. See [PR #946](https://github.com/ant-design/x/pull/946).
 
 ## How to adapt to mobile?
 

@@ -108,7 +108,7 @@ const App = () => (
 
 更多实现方式可以参考 [Copilot 示例](https://github.com/ant-design/x/blob/main/docs/playground/copilot.tsx) 和 [ThoughtChain 组件文档](/components/thought-chain-cn)。
 
-> **📢 即将到来**: Ant Design X 2.0 版本将新增 Think 组件，专门用于展示 AI 思考过程，提供更便捷的思维链渲染方案。
+> **📢 即将到来**: Ant Design X 2.0 版本将新增 Think 组件，专门用于展示 AI 思考过程，提供更便捷的思维链渲染方案。详见 [PR #946](https://github.com/ant-design/x/pull/946)。
 
 ## 如何适配移动端？
 
