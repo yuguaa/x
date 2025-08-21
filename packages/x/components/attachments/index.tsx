@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { useEvent, useMergedState } from 'rc-util';
 import React from 'react';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
+import { FileCardProps } from '../file-card';
 import { useXProviderContext } from '../x-provider';
 import { AttachmentContext } from './context';
 import DropArea from './DropArea';
@@ -13,13 +14,13 @@ import PlaceholderUploader, {
 } from './PlaceholderUploader';
 import SilentUploader from './SilentUploader';
 import useStyle from './style';
-import { FileCardProps } from '../file-card';
 
 export type SemanticType = 'list' | 'item' | 'placeholder' | 'upload';
 
-export type Attachment = GetProp<UploadProps, 'fileList'>[number] & Omit<FileCardProps,'size'|'byte'> & {
-  description?: React.ReactNode;
-};
+export type Attachment = GetProp<UploadProps, 'fileList'>[number] &
+  Omit<FileCardProps, 'size' | 'byte'> & {
+    description?: React.ReactNode;
+  };
 
 export interface AttachmentsProps extends Omit<UploadProps, 'fileList'> {
   prefixCls?: string;
@@ -91,7 +92,6 @@ function Attachments(props: AttachmentsProps, ref: React.Ref<AttachmentsRef>) {
     nativeElement: containerRef.current,
     upload: (file) => {
       const fileInput = uploadRef.current?.nativeElement?.querySelector('input[type="file"]');
-
       // Trigger native change event
       if (fileInput) {
         const dataTransfer = new DataTransfer();

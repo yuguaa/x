@@ -18,7 +18,7 @@ The Attachments component is used in scenarios where a set of attachment informa
 ## Examples
 
 <!-- prettier-ignore -->
-<code src="./demo/basic.tsx">Basic</code>
+<code src="./demo/drop.tsx">Basic</code>
 <code src="./demo/placeholder.tsx">Placeholder</code>
 <code src="./demo/overflow.tsx">Overflow</code>
 <code src="./demo/with-sender.tsx">Combination</code>

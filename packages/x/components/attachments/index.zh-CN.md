@@ -19,10 +19,10 @@ Attachments 组件用于需要展示一组附件信息集合的场景。
 ## 代码演示
 
 <!-- prettier-ignore -->
-<code src="./demo/basic.tsx">基本</code>
+<code src="./demo/with-sender.tsx">输入上传文件</code>
+<code src="./demo/drop.tsx">拖拽上传</code>
 <code src="./demo/placeholder.tsx">占位信息</code>
 <code src="./demo/overflow.tsx">超出样式</code>
-<code src="./demo/with-sender.tsx">组合示例</code>
 
 ## API
 
