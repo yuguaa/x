@@ -8,7 +8,6 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import {
-  Actions,
   Bubble,
   Conversations,
   Prompts,
@@ -65,7 +64,9 @@ export default () => {
                       key: '1',
                       placement: 'end',
                       content: 'Hello Ant Design X!',
-                      avatar: { icon: <UserOutlined /> },
+                      components: {
+                        avatar: <UserOutlined />,
+                      },
                     },
                     {
                       key: '2',
@@ -138,12 +139,6 @@ export default () => {
                 ]}
               />
             </Flex>
-          </XProvider>
-        </Card>
-
-        <Card>
-          <XProvider direction={direction}>
-            <Actions.Feedback value={'default'} />
           </XProvider>
         </Card>
       </Flex>

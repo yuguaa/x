@@ -22,6 +22,8 @@ const transformIgnorePatterns = [
   // Ignore modules without es dir.
   // Update: @babel/runtime should also be transformed
   `[/\\\\]node_modules[/\\\\](?!${ignoreList.join('|')})[^/\\\\]+?[/\\\\](?!(es)[/\\\\])`,
+  // Ignore antdx umd js file
+  '[/\\\\]dist[/\\\\]antdx.*\\.js$',
 ];
 
 function getTestRegex(libDir) {
@@ -48,8 +50,9 @@ module.exports = {
     '^@ant-design/x-markdown/es/(.*)$': '<rootDir>/../../packages/x-markdown/src/$1',
     '^@ant-design/x-markdown/lib/(.*)$': '<rootDir>/../../packages/x-markdown/src/$1',
     '^@ant-design/x-markdown/plugins/(.*)$': '<rootDir>/../../packages/x-markdown/src/plugins/$1',
-    '^@ant-design/x-card$': '<rootDir>/../../packages/x-card/src/index',
     '^@ant-design/x-sdk$': '<rootDir>/../../packages/x-sdk/src/index',
+    '^@ant-design/x-sdk/es/(.*)$': '<rootDir>/../../packages/x-sdk/src/$1',
+    '^@ant-design/x-sdk/lib/(.*)$': '<rootDir>/../../packages/x-sdk/src/$1',
   },
   testPathIgnorePatterns: ['/node_modules/', 'dekko', 'node', 'image.test.js', 'image.test.ts'],
   transform: {
