@@ -1,32 +1,8 @@
 import { createStyles } from 'antd-style';
-import classnames from 'classnames';
-import { useLocation } from 'dumi';
 import React from 'react';
-
-import { Button } from 'antd';
-import useLocale from '../../../hooks/useLocale';
 import useLottie from '../../../hooks/useLottie';
-import Link from '../../../theme/common/Link';
-import { getLocalizedPathname, isZhCN } from '../../../theme/utils';
 import Container from '../common/Container';
-import SiteContext from './SiteContext';
-import type { SiteContextProps } from './SiteContext';
 import Portal from './SceneIntroduction/Portal';
-
-const locales = {
-  cn: {
-    slogan: 'AI 体验新秩序',
-    desc: 'Ant Design 团队匠心呈现 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。',
-    start: '开始使用',
-    design: '设计语言',
-  },
-  en: {
-    slogan: 'New AI Experience',
-    desc: 'The Ant Design team presents the RICH paradigm, crafting superior AI interface solutions and pioneering intelligent experiences.',
-    start: 'Get Started',
-    design: 'Get Design',
-  },
-};
 
 const useStyle = createStyles(({ token, css }) => {
   const minBannerWidth = token.mobileMaxWidth - token.padding * 2;
@@ -41,23 +17,21 @@ const useStyle = createStyles(({ token, css }) => {
       align-items: center;
       position: relative;
       font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
-
       @media only screen and (max-width: ${token.mobileMaxWidth}px) {
         height: calc(100vh - ${token.paddingLG}px);
       }
     `,
-
     background: css`
       width: 100%;
-      height: 100vh;
+      height: 100%;
       position: absolute;
       filter: blur(50px);
       background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%);
     `,
     container: css`
       height: 100%;
-      max-height: calc(100vh - ${token.headerHeight * 2}px);
-      position: relative;
+      max-height: 100%;
+      box-sizing:border-box;
       display:flex;
       justify-content:space-between;
       padding-block-start:180px;
@@ -74,6 +48,7 @@ const useStyle = createStyles(({ token, css }) => {
       top: 50%;
       inset-inline-start: 0;
       z-index: 1;
+
       @media only screen and (max-width: ${token.mobileMaxWidth}px) {
         width: 100%;
         display: flex;
@@ -108,6 +83,7 @@ const useStyle = createStyles(({ token, css }) => {
     `,
     name: css`
       font-size: 80px !important;
+            white-space: nowrap;
       line-height: 1.3;
       color: ${token.colorText};
       font-weight: bold;
@@ -218,12 +194,6 @@ const useStyle = createStyles(({ token, css }) => {
 });
 
 const MainBanner: React.FC = () => {
-  const [locale] = useLocale(locales);
-
-  const { pathname, search } = useLocation();
-
-  const { direction, isMobile } = React.useContext<SiteContextProps>(SiteContext);
-
   const { styles } = useStyle();
 
   const [bgLottieRef, bgAnimation] = useLottie({
@@ -234,17 +204,6 @@ const MainBanner: React.FC = () => {
       preserveAspectRatio: 'xMidYMid slice',
     },
     path: 'https://mdn.alipayobjects.com/huamei_iwk9zp/afts/file/A*3QcuQpaOguQAAAAAAAAAAAAADgCCAQ',
-  });
-
-  const [ipLottieRef, ipAnimation] = useLottie({
-    renderer: 'svg',
-    loop: false,
-    autoplay: true,
-    disabled: isMobile,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid meet',
-    },
-    path: 'https://mdn.alipayobjects.com/huamei_iwk9zp/afts/file/A*YbV2QqZdDQ0AAAAAAAAAAAAADgCCAQ',
   });
 
   React.useEffect(() => {
@@ -266,75 +225,17 @@ const MainBanner: React.FC = () => {
     }
 
     bgAnimation.addEventListener('data_ready', playAnimation);
-
     playAnimation();
-
     return () => {
       bgAnimation.destroy();
     };
   }, [!!bgAnimation]);
 
-  React.useEffect(() => {
-    if (!ipAnimation) return;
-
-    let reverseFrameInterval: NodeJS.Timeout;
-
-    ipAnimation.addEventListener('data_ready', () => {
-      let currentFrame = ipAnimation.totalFrames;
-      const reverseFrames = 30;
-
-      reverseFrameInterval = setInterval(() => {
-        currentFrame--;
-        ipAnimation.goToAndStop(currentFrame, true);
-
-        if (currentFrame <= ipAnimation.totalFrames - reverseFrames) {
-          clearInterval(reverseFrameInterval);
-          ipAnimation.play();
-        }
-      }, 1000 / 30);
-    });
-
-    return () => {
-      ipAnimation.destroy();
-      window.clearInterval(reverseFrameInterval);
-    };
-  }, [!!ipAnimation]);
-
   return (
     <section className={styles.banner}>
       <div ref={bgLottieRef} className={styles.background} />
       <Container className={styles.container}>
-        <div>
-          <div className={styles.title}>
-            <h1 className={styles.name}>
-              Ant Des
-              <span className={styles.iAlphabet}>
-                I<span className={styles.iAlphabetStar} />
-              </span>
-              gn   <div className={classnames(styles.x, 'x-hover')}>X</div>
-            </h1>
-            <h1 className={styles.name}>{locale.slogan}</h1>
-            <h5 className={styles.desc}>{locale.desc}</h5>
-          </div>
-          <div className={styles.content}>
-            <Link to={getLocalizedPathname('components/overview', isZhCN(pathname), search)}>
-              <button type="button" className={classnames(styles.btn, styles.startBtn)}>
-                {locale.start}
-              </button>
-            </Link>
-            <Link to={getLocalizedPathname('/docs/spec/introduce', isZhCN(pathname), search)}>
-              <Button type="text" className={classnames(styles.btn, styles.designBtn)}>
-                {locale.design}
-              </Button>
-            </Link>
-          </div>
-        </div>
-
         <Portal />
-        {/* <div
-          ref={ipLottieRef}
-          className={classnames(styles.lottie, direction === 'rtl' && styles.lottie_rtl)}
-        /> */}
       </Container>
     </section>
   );
