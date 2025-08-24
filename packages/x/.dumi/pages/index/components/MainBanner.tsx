@@ -10,7 +10,7 @@ const useStyle = createStyles(({ token, css }) => {
   return {
     banner: css`
       width: 100vw;
-      height: calc(100vh - 160px);
+      height: calc(100vh - 80px);
       min-height: 600px;
       display: flex;
       justify-content: center;
@@ -20,6 +20,14 @@ const useStyle = createStyles(({ token, css }) => {
       @media only screen and (max-width: ${token.mobileMaxWidth}px) {
         height: calc(100vh - ${token.paddingLG}px);
       }
+      &:hover .x-hover{
+        rotate: -90deg;
+        color: transparent;
+        background-repeat:no-repeat;
+        background-size:contain;
+        background-position:center;
+        background-image:url('https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/MGdkQ6iLuXEAAAAAQDAAAAgADtFMAQFr/original')
+        }
     `,
     background: css`
       width: 100%;
@@ -34,7 +42,7 @@ const useStyle = createStyles(({ token, css }) => {
       box-sizing:border-box;
       display:flex;
       justify-content:space-between;
-      padding-block-start:180px;
+      padding-block-start:100px;
     `,
     x: css`
      transition: rotate ${token.motionDurationMid};

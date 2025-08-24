@@ -148,11 +148,6 @@ const useStyle = createStyles(({ token, css }) => {
     `,
     sender: css`
       border-radius: ${borderRadius * 2}px;
-      display: flex;
-      align-items: center;
-      .ant-sender-content {
-        padding: 0px ${token.paddingSM}px;
-      }
     `,
     conversations: css`
       padding: ${token.padding}px;

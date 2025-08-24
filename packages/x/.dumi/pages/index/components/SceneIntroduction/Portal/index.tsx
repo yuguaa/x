@@ -1,6 +1,7 @@
 import { createStyles } from 'antd-style';
-import React from 'react';
+import React, { useState } from 'react';
 import useLocale from '../../../../../hooks/useLocale';
+import Agent from './Agent';
 import Prompt from './Prompt';
 import Provider, { LOCALES } from './Provider';
 import Sender from './Sender';
@@ -20,14 +21,6 @@ const useStyle = createStyles(({ token, css }) => {
       width: 100%;
       min-width: 500px;
       padding-inline: ${token.paddingXL * 2}px;
-      &:hover .x-hover{
-        rotate: -90deg;
-        color: transparent;
-        background-repeat:no-repeat;
-        background-size:contain;
-        background-position:center;
-        background-image:url('https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/MGdkQ6iLuXEAAAAAQDAAAAgADtFMAQFr/original')
-        }
    `,
     bubble_list: css`
       flex: 1;
@@ -105,12 +98,22 @@ const useStyle = createStyles(({ token, css }) => {
 const PortalScene: React.FC = () => {
   const { styles } = useStyle();
   const [locale] = useLocale(LOCALES);
+  const [start, setStart] = useState<boolean>(true);
+  const onSubmit = () => {
+    setStart(false);
+  };
   return (
     <Provider>
       <div className={styles.container}>
-        <StartPage />
-        <Sender />
-        <Prompt />
+        {start ? (
+          <>
+            <StartPage />
+            <Sender onSubmit={onSubmit} />
+            <Prompt />
+          </>
+        ) : (
+          <Agent />
+        )}
       </div>
     </Provider>
   );

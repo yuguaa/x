@@ -74,11 +74,10 @@ const genSenderStyle: GenerateStyle<SenderToken> = (token) => {
         _skip_check_: true,
         value: calc(token.borderRadius).mul(2).equal(),
       },
-
       borderColor: token.colorBorderInput,
       borderWidth: lineWidth,
       borderStyle: 'solid',
-
+      flexDirection: 'column',
       '&-disabled': {
         background: token.colorBgContainerDisabled,
       },

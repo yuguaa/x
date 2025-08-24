@@ -49,11 +49,11 @@ const useStyle = createStyles(({ token, css }) => {
   return {
     container: css`
         text-align: center;
-        margin-block-end: ${token.paddingXL * 2}px
+        margin-block-end: ${token.paddingXL}px
         `,
     prompts: css`
         width: 100%;
-        margin-block: ${token.paddingXL * 2}px;
+        margin-block: ${token.paddingXL}px;
       
         `,
     promptsList: css`
@@ -66,23 +66,27 @@ const useStyle = createStyles(({ token, css }) => {
        width: 18%;
        border: none!important;
        height: 150px!important;
-        background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%) !important;
-        &::after{
+       transition: all ${token.motionDurationMid} ${token.motionEaseInOut}!important;
+       background: linear-gradient(135deg, #ffffff26 29%, #ffffff0d 80%) !important;
+       &:hover{
+         transform: scale(0.96);
+       }
+       &::after{
         content: '';
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border-radius: inherit;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    padding: 1px;
-    background: linear-gradient(180deg, #ffffff26 0%, #ffffff00 100%);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border-radius: inherit;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        padding: 1px;
+        background: linear-gradient(180deg, #ffffff26 0%, #ffffff00 100%);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
         }
         `,
   };
