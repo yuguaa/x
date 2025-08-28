@@ -1,3 +1,21 @@
+---
+order: 6
+title: Changelog
+toc: false
+timeline: true
+tag: vVERSION
+---
+
+`@ant-design/x` follows [Semantic Versioning 2.0.0](http://semver.org/).
+
+#### Release Schedule
+
+- Weekly release: Patch version for routine bugfix.
+- Monthly release: minor version at the end for new features.
+- Major version release for breaking change and new features.
+
+---
+
 ## 2.0.0-alpha.6
 
 `2025-08-28`
@@ -14,22 +32,6 @@
 - 🐛 Fixed semantic and size display issues in FileCard. [#1130](https://github.com/ant-design/x/pull/1130) by [@kimteayon](https://github.com/kimteayon).
 - 📦 Upgraded father configuration. [#1125](https://github.com/ant-design/x/pull/1125) by [@fireairforce](https://github.com/fireairforce).
 - 📖 Improved the official site for better user experience. [#1142](https://github.com/ant-design/x/pull/1142) by [@kimteayon](https://github.com/kimteayon).
-
----
-
-order: 6 title: Changelog toc: false timeline: true tag: vVERSION
-
----
-
-`@ant-design/x` follows [Semantic Versioning 2.0.0](http://semver.org/).
-
-#### Release Schedule
-
-- Weekly release: Patch version for routine bugfix.
-- Monthly release: minor version at the end for new features.
-- Major version release for breaking change and new features.
-
----
 
 ## 2.0.0-alpha.5
 
