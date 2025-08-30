@@ -28,7 +28,10 @@ const useStyle = createStyles(({ token, css }) => {
   return {
     container: css`
         text-align: center;
-        margin-block-end: ${token.paddingXL}px
+        display: flex;
+        flex-direction: column;
+        height: 32%;
+        justify-content: space-between;
         `,
     x: css`
         transition: rotate ${token.motionDurationMid};
@@ -116,7 +119,6 @@ const useStyle = createStyles(({ token, css }) => {
       };
     `,
     content: css`
-      margin-block-start: ${token.margin}px;
       display: flex;
       gap: ${token.paddingLG}px;
       flex-wrap: wrap;

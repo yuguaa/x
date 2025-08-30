@@ -18,7 +18,7 @@ const locales = {
     prompt_description_3: 'X SDK 支持那些场景？是否支持自定义数据转化',
     prompt_label_4: '有没有大模型和智能体完整的样板间可以试用？',
     prompt_description_4:
-      '需要开发一个完整的智能体应用，搭建智能体有没有推荐的应用，同时需要搭建一个完整应用，有没有开箱即用的脚手架。',
+      '开发一个完整的智能体应用，搭建智能体有没有推荐的应用，有没有开箱即用的脚手架。',
     prompt_label_5: 'Ant Design X 推出全新 RICH 设计规范！',
     prompt_description_5: '什么是RICH 设计，有没有设计资产？',
   },
@@ -48,24 +48,29 @@ const locales = {
 const useStyle = createStyles(({ token, css }) => {
   return {
     container: css`
-        text-align: center;
-        margin-block-end: ${token.paddingXL}px
+      text-align: center;
+      padding-block-end: ${token.paddingXL * 1.5}px;
         `,
     prompts: css`
         width: 100%;
-        margin-block: ${token.paddingXL}px;
-      
         `,
     promptsList: css`
         width: 100%;
-       
         justify-content: space-between;
         `,
     promptsItem: css`
+      .ant-prompts-desc{
+      max-height: ${token.lineHeight * token.fontSize * 5}px;
+      overflow: hidden;
+       display: -webkit-box;
+      -webkit-line-clamp: 5; 
+      -webkit-box-orient: vertical;
+    overflow: hidden;
+      }
        position: relative;
        width: 18%;
        border: none!important;
-       height: 150px!important;
+       max-height: 200px!important;
        transition: all ${token.motionDurationMid} ${token.motionEaseInOut}!important;
        background: linear-gradient(135deg, #ffffff26 29%, #ffffff0d 80%) !important;
        &:hover{

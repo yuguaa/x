@@ -11,14 +11,14 @@ const useStyle = createStyles(({ token, css }) => {
     banner: css`
       width: 100vw;
       height: calc(100vh - 80px);
-      min-height: 600px;
+      min-height: 750px;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
       font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
       @media only screen and (max-width: ${token.mobileMaxWidth}px) {
-        height: calc(100vh - ${token.paddingLG}px);
+      height: calc(100vh - ${token.paddingLG}px);
       }
       &:hover .x-hover{
         rotate: -90deg;
@@ -42,7 +42,7 @@ const useStyle = createStyles(({ token, css }) => {
       box-sizing:border-box;
       display:flex;
       justify-content:space-between;
-      padding-block-start:100px;
+      padding-block-start:80px;
     `,
     x: css`
      transition: rotate ${token.motionDurationMid};

@@ -7,14 +7,11 @@ import Provider, { LOCALES } from './Provider';
 import Sender from './Sender';
 import StartPage from './StartPage';
 
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
-
-const mockSuccess = false;
-
 const useStyle = createStyles(({ token, css }) => {
   return {
     container: css`
       display: flex;
+      justify-content: space-around;
       box-sizing: border-box;
       flex-direction: column;
       height: 100%;
