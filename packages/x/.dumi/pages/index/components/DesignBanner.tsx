@@ -1,11 +1,9 @@
 import { createStyles } from 'antd-style';
-import React from 'react';
-
 import { useLocation, useNavigate } from 'dumi';
-import { getLocalizedPathname, isZhCN } from '../../../theme/utils';
-
+import React from 'react';
 import useLocale from '../../../hooks/useLocale';
 import useLottie from '../../../hooks/useLottie';
+import { getLocalizedPathname, isZhCN } from '../../../theme/utils';
 import Container from '../common/Container';
 
 const locales = {
@@ -24,7 +22,6 @@ const useStyle = createStyles(({ css }) => {
     container: css`
       height: 500px;
       overflow: hidden;
-
       cursor: pointer;
     `,
     lottie: css`

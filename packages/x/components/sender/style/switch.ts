@@ -9,17 +9,25 @@ const genSenderSwitchStyle: GenerateStyle<SenderToken> = (token) => {
   return {
     [switchCls]: {
       display: 'inline-block',
+      [`${antCls}-btn`]: {
+        boxShadow: 'unset',
+        background: 'transparent',
+        borderColor: token.switchColorBorder,
+      },
       [`${antCls}-btn:not(:disabled):not(${antCls}-btn-disabled):hover`]: {
         background: token.switchUncheckedHoverBg,
-        borderColor: token.colorBorder,
         color: token.colorText,
+        borderColor: token.switchColorBorder,
       },
-
       '&-checked': {
+        [`${antCls}-btn`]: {
+          borderColor: token.switchColorPrimary,
+          color: token.switchColorPrimary,
+        },
         [`${antCls}-btn:not(:disabled):not(${antCls}-btn-disabled):hover`]: {
           background: token.switchCheckedHoverBg,
-          borderColor: token.colorPrimary,
-          color: token.colorPrimaryText,
+          color: token.switchColorPrimary,
+          borderColor: token.switchColorPrimary,
         },
         [`${switchCls}-content`]: {
           background: token.switchCheckedBg,

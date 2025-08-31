@@ -8,7 +8,6 @@ export const useCustomizationBgStyle = createStyles(({ token, css }) => {
       background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%) !important;
       overflow: hidden;
       position: auto;
-
       &::after {
         content: '';
         width: 100%;
@@ -162,11 +161,25 @@ const useStyle = createStyles(({ token, css }) => {
   };
 });
 
-const Provider: React.FC<{ children: React.ReactNode }> = (props) => {
+const Provider: React.FC<{
+  children: React.ReactNode;
+}> = (props) => {
   const { styles } = useStyle();
 
   return (
     <XProvider
+      theme={{
+        components: {
+          Sender: {
+            colorPrimary: '#ffffff',
+            switchColorBorder: 'rgba(255,255,255,.2)',
+            switchColorPrimary: 'rgba(255,255,255,.8)',
+            switchCheckedBg: 'rgba(255,255,255,.1)',
+            switchCheckedHoverBg: 'rgba(255,255,255,.1)',
+            switchUncheckedHoverBg: 'rgba(255,255,255,.1)',
+          },
+        },
+      }}
       conversations={{
         className: styles.conversations,
       }}

@@ -1,6 +1,7 @@
 import { createStyles } from 'antd-style';
 import classnames from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../../theme/layouts/IndexLayout/Context';
 import CompIntroduction from './components/CompIntroduction';
 import DesignBanner from './components/DesignBanner';
 import DesignFramework from './components/DesignFramework';
@@ -31,23 +32,27 @@ const useStyle = createStyles(({ token, css }) => {
 
 const Homepage: React.FC = () => {
   const { styles } = useStyle();
-
+  const { isOnAgent } = useContext(Context);
   return (
     <main>
       <MainBanner />
-      <section className={styles.section}>
-        <DesignBanner />
-      </section>
-      <section className={classnames(styles.section, styles.container)}>
-        <DesignGuide />
-      </section>
-      <section className={classnames(styles.section, styles.container)}>
-        <SceneIntroduction />
-        <CompIntroduction />
-      </section>
-      <section className={classnames(styles.section, styles.framework, styles.container)}>
-        <DesignFramework />
-      </section>
+      {isOnAgent ? null : (
+        <>
+          <section className={styles.section}>
+            <DesignBanner />
+          </section>
+          <section className={classnames(styles.section, styles.container)}>
+            <DesignGuide />
+          </section>
+          <section className={classnames(styles.section, styles.container)}>
+            <SceneIntroduction />
+            <CompIntroduction />
+          </section>
+          <section className={classnames(styles.section, styles.framework, styles.container)}>
+            <DesignFramework />
+          </section>
+        </>
+      )}
     </main>
   );
 };

@@ -51,6 +51,21 @@ export interface ComponentToken {
   switchUncheckedHoverBg: string;
 
   /**
+   * @desc 开关边框颜色
+   * @descEN Switch border color
+   */
+  switchColorBorder: string;
+  /**
+   * @desc 开关主色
+   * @descEN Switch primary color
+   */
+  switchColorPrimary: string;
+
+  /**
+   * @desc 输入框边框颜色
+   * @descEN Input border color
+   */
+  /**
    * @desc 输入框边框颜色
    * @descEN Input border color
    */
@@ -160,7 +175,7 @@ const genSenderStyle: GenerateStyle<SenderToken> = (token) => {
 };
 
 export const prepareComponentToken: GetDefaultToken<'Sender'> = (token) => {
-  const { colorPrimary, colorFillTertiary } = token;
+  const { colorPrimary, colorFillTertiary, colorBorder } = token;
 
   const colorBgSlot = new FastColor(colorPrimary).setA(0.06).toRgbString();
   const colorTextSlot = colorPrimary;
@@ -168,22 +183,25 @@ export const prepareComponentToken: GetDefaultToken<'Sender'> = (token) => {
   const colorBorderSlotHover = new FastColor(colorPrimary).setA(0.1).toRgbString();
   const colorBorderSlot = colorBgSlot;
   const switchCheckedBg = new FastColor(colorPrimary).setA(0.08).toRgbString();
-
+  const switchColorBorder = colorBorder;
   const switchUncheckedHoverBg = new FastColor(colorFillTertiary).setA(0.04).toRgbString();
   const switchCheckedHoverBg = new FastColor(colorPrimary).setA(0.1).toRgbString();
   const colorBorderInput = new FastColor(colorFillTertiary).setA(0.1).toRgbString();
   const boxShadowInput = `0 4px 12px 0 ${new FastColor(colorPrimary).setA(0.1).toRgbString()}`;
+  const switchColorPrimary = colorPrimary;
   return {
     colorBgSlot,
     colorTextSlot,
     colorTextSlotPlaceholder,
     colorBorderSlotHover,
+    switchColorBorder,
     colorBorderSlot,
     switchCheckedBg,
     switchCheckedHoverBg,
     switchUncheckedHoverBg,
     colorBorderInput,
     boxShadowInput,
+    switchColorPrimary,
   };
 };
 

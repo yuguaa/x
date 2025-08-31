@@ -30,8 +30,8 @@ const useStyle = createStyles(({ token, css }) => {
         text-align: center;
         display: flex;
         flex-direction: column;
-        height: 32%;
-        justify-content: space-between;
+        height: 30%;
+        justify-content: space-around;
         `,
     x: css`
         transition: rotate ${token.motionDurationMid};

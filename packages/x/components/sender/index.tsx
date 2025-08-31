@@ -301,7 +301,6 @@ const ForwardSender = React.forwardRef<SenderRef, SenderProps>((props, ref) => {
       inputRef.current?.focus();
     }
   };
-  console.log(mergedCls, 'mergedCls');
   // ============================ Render ============================
   return (
     <div
