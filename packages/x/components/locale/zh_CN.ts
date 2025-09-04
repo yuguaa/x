@@ -1,6 +1,6 @@
-import type { xLocale } from './index';
+import type { xLocale, xMarkdownLocale } from './index';
 
-const localeValues: Required<xLocale> = {
+const localeValues: Required<xLocale & xMarkdownLocale> = {
   locale: 'zh-cn',
   Conversations: {
     create: '新对话',
@@ -16,6 +16,20 @@ const localeValues: Required<xLocale> = {
   Bubble: {
     editableOk: '确认',
     editableCancel: '取消',
+  },
+  Mermaid: {
+    copySuccess: '复制成功',
+    copy: '复制代码',
+    zoomIn: '缩小',
+    zoomOut: '放大',
+    zoomReset: '重置',
+    download: '下载',
+    code: '代码',
+    image: '图片',
+  },
+  HighlightCode: {
+    copySuccess: '复制成功',
+    copy: '复制代码',
   },
 };
 

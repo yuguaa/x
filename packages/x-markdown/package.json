@@ -13,12 +13,14 @@
     "test": "jest --config .jest.js --no-cache --collect-coverage",
     "coverage": "jest --config .jest.js --no-cache --collect-coverage --coverage",
     "plugin:meta": "tsx scripts/generate-plugin-meta.ts",
-    "prestart": "npm run version && npm run plugin:meta",
+    "prestart": "npm run version &&  npm run token:statistic && npm run plugin:meta && npm run token:meta",
     "precompile": "npm run prestart",
     "version": "tsx scripts/generate-version.ts",
     "test:dekko": "tsx ./tests/dekko/index.test.ts",
     "clean": "rm -rf es lib coverage plugins dist themes",
-    "test:package-diff": "antd-tools run package-diff"
+    "test:package-diff": "antd-tools run package-diff",
+    "token:meta": "tsx scripts/generate-token-meta.ts",
+    "token:statistic": "tsx scripts/collect-token-statistic.ts"
   },
   "sideEffects": false,
   "main": "lib/index.js",
@@ -58,7 +60,8 @@
     "lodash.throttle": "^4.1.1",
     "marked": "^15.0.12",
     "react-syntax-highlighter": "^15.6.1",
-    "mermaid": "^11.8.1"
+    "mermaid": "^11.8.1",
+    "@ant-design/x": "*"
   },
   "devDependencies": {
     "@types/lodash.throttle": "^4.1.9",
@@ -70,9 +73,11 @@
     "antd-style": "^4.0.0-alpha.1",
     "antd-token-previewer": "^3.0.0-alpha.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "glob": "^11.0.0"
   },
   "peerDependencies": {
+    "antd": "6.0.0-alpha.1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },

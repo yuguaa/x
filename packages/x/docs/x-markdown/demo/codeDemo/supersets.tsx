@@ -4,6 +4,7 @@ import Latex from '@ant-design/x-markdown/plugins/Latex';
 import Mermaid from '@ant-design/x-markdown/plugins/Mermaid';
 import React from 'react';
 import '@ant-design/x-markdown/themes/light.css';
+import { useMarkdownTheme } from '../_utils';
 
 const content = `
 ### Latex
@@ -21,20 +22,24 @@ block: \n
 
 `;
 
+const Code = (props: { className: string; children: string }) => {
+  const { className, children } = props;
+  const lang = className?.match(/language-(\w+)/)?.[1] || '';
+  if (lang === 'mermaid') {
+    return <Mermaid>{children}</Mermaid>;
+  }
+  return <HighlightCode lang={lang}>{children}</HighlightCode>;
+};
+
 const App: React.FC = () => {
+  const [className] = useMarkdownTheme();
+
   return (
     <XMarkdown
-      className="x-markdown-light"
+      className={className}
       config={{ extensions: Latex() }}
       components={{
-        code: (props: any) => {
-          const { class: className, children } = props;
-          const lang = className?.replace('language-', '');
-          if (lang === 'mermaid') {
-            return <Mermaid>{children}</Mermaid>;
-          }
-          return <HighlightCode lang={lang}>{children}</HighlightCode>;
-        },
+        code: Code,
       }}
     >
       {content}

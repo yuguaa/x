@@ -13,8 +13,7 @@ Markdown 中需要渲染高亮代码块。
 ## 代码演示
 
 <!-- prettier-ignore -->
-<code src="./demo/supersets/HighlightCode/basic.tsx">基本使用</code>
-<code src="./demo/supersets/HighlightCode/streaming.tsx">流式对话</code>
+<code src="./demo/supersets/HighlightCode/basic.tsx"></code>
 
 ## API
 
@@ -31,3 +30,7 @@ Markdown 中需要渲染高亮代码块。
 ## Semantic DOM
 
 <code src="./demo/supersets/HighlightCode/_semantic.tsx" simplify="true"></code>
+
+## 主题变量（Design Token）
+
+<XMarkdownComponentTokenTable component="HighlightCode"></XMarkdownComponentTokenTable>

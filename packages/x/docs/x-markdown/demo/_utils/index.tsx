@@ -1,3 +1,6 @@
+import { theme } from 'antd';
+import React from 'react';
+
 const splitIntoChunks = (str: string, chunkSize: number) => {
   const chunks = [];
   for (let i = 0; i < str.length; i += chunkSize) {
@@ -6,8 +9,8 @@ const splitIntoChunks = (str: string, chunkSize: number) => {
   return chunks;
 };
 
-export const mockFetch = async (fullContent: string) => {
-  const chunks = splitIntoChunks(fullContent, 10);
+export const mockFetch = async (fullContent: string, onFinish?: () => void) => {
+  const chunks = splitIntoChunks(fullContent, 3);
   const response = new Response(
     new ReadableStream({
       async start(controller) {
@@ -22,6 +25,7 @@ export const mockFetch = async (fullContent: string) => {
 
             controller.enqueue(new TextEncoder().encode(chunk));
           }
+          onFinish?.();
           controller.close();
         } catch (error) {
           console.log(error);
@@ -36,4 +40,19 @@ export const mockFetch = async (fullContent: string) => {
   );
 
   return response;
+};
+
+export const useMarkdownTheme = () => {
+  const token = theme.useToken();
+
+  // 使用 Ant Design 的主题系统判断亮色还是暗色
+  const isLightMode = React.useMemo(() => {
+    return token?.theme?.id === 0;
+  }, [token]);
+
+  const className = React.useMemo(() => {
+    return isLightMode ? 'x-markdown-light' : 'x-markdown-dark';
+  }, [isLightMode]);
+
+  return [className];
 };

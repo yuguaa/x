@@ -13,8 +13,7 @@ Markdown 中需要渲染 Mermaid。
 ## 代码演示
 
 <!-- prettier-ignore -->
-<code src="./demo/supersets/Mermaid/basic.tsx">基本使用</code>
-<code src="./demo/supersets/Mermaid/streaming.tsx">流式对话</code>
+<code src="./demo/supersets/Mermaid/basic.tsx"></code>
 
 ## API
 
@@ -30,3 +29,7 @@ Markdown 中需要渲染 Mermaid。
 ## Semantic DOM
 
 <code src="./demo/supersets/Mermaid/_semantic.tsx" simplify="true"></code>
+
+## 主题变量（Design Token）
+
+<XMarkdownComponentTokenTable component="Mermaid"></XMarkdownComponentTokenTable>

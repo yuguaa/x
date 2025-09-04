@@ -21,6 +21,8 @@ interface SteamingOption {
   animationConfig?: ControllerUpdate;
 }
 
+type streamStatus = 'loading' | 'done';
+
 interface XMarkdownProps {
   content?: string;
   children?: string;
@@ -34,4 +36,4 @@ interface XMarkdownProps {
   prefixCls?: string;
 }
 
-export type { XMarkdownProps, Token, Tokens };
+export type { XMarkdownProps, Token, Tokens, streamStatus };

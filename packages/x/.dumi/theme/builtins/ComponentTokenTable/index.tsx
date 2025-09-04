@@ -23,7 +23,9 @@ const compare = (token1: string, token2: string) => {
   return token1 < token2 ? -1 : 1;
 };
 
-const defaultToken = getDesignToken();
+const defaultToken: any = getDesignToken();
+const xTokenData: any = tokenData;
+const xTokenMeta: any = tokenMeta;
 
 const locales = {
   cn: {
@@ -115,8 +117,8 @@ const SubTokenTable: React.FC<SubTokenTableProps> = (props) => {
     .sort(component ? undefined : compare)
     .map<TokenData>((name) => {
       const meta = component
-        ? tokenMeta.components[component].find((item) => item.token === name)
-        : tokenMeta.global[name];
+        ? xTokenMeta.components[component].find((item: { token: string }) => item.token === name)
+        : xTokenMeta.global?.[name];
 
       if (!meta) {
         return null as unknown as TokenData;
@@ -126,7 +128,7 @@ const SubTokenTable: React.FC<SubTokenTableProps> = (props) => {
         name,
         desc: lang === 'cn' ? meta.desc : meta.descEn,
         type: meta.type,
-        value: component ? tokenData[component].component[name] : defaultToken[name],
+        value: component ? xTokenData[component].component[name] : defaultToken[name],
       };
     })
     .filter(Boolean);
@@ -209,7 +211,7 @@ const ComponentTokenTable: React.FC<ComponentTokenTableProps> = ({ component }) 
     const globalTokenSet = new Set<string>();
 
     component.split(',').forEach((comp) => {
-      const { global: globalTokens = [] } = tokenData[comp] || {};
+      const { global: globalTokens = [] } = xTokenData?.[comp] || {};
 
       globalTokens.forEach((token: string) => {
         globalTokenSet.add(token);
@@ -221,13 +223,13 @@ const ComponentTokenTable: React.FC<ComponentTokenTableProps> = ({ component }) 
 
   return (
     <>
-      {tokenMeta.components[component] && (
+      {xTokenMeta?.components?.[component] && (
         <SubTokenTable
           defaultOpen
           title={locale.componentToken}
           helpText={locale.help}
           helpLink={locale.customizeTokenLink}
-          tokens={tokenMeta.components[component].map((item) => item.token)}
+          tokens={xTokenMeta?.components?.[component].map((item: { token: any }) => item.token)}
           component={component}
           comment={{
             componentComment: locale.componentComment,

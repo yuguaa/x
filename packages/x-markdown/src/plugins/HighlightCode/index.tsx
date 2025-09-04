@@ -1,3 +1,5 @@
+import { CopyOutlined } from '@ant-design/icons';
+import { Button, message, Tooltip } from 'antd';
 import classnames from 'classnames';
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -5,6 +7,8 @@ import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import useXProviderContext from '../hooks/use-x-provider-context';
 import type { PluginsType } from '../type';
 import useStyle from './style';
+import useLocale from '@ant-design/x/es/locale/useLocale';
+import locale_EN from '@ant-design/x/locale/en_US';
 
 const HighlightCode: PluginsType['HighlightCode'] = (props) => {
   const {
@@ -14,9 +18,13 @@ const HighlightCode: PluginsType['HighlightCode'] = (props) => {
     prefixCls: customizePrefixCls,
     className,
     classNames,
+    styles = {},
     style,
     highlightProps,
   } = props;
+
+  // ============================ locale ============================
+  const [contextLocale] = useLocale('HighlightCode', locale_EN.HighlightCode);
 
   // ============================ style ============================
   const { getPrefixCls, direction } = useXProviderContext();
@@ -27,12 +35,22 @@ const HighlightCode: PluginsType['HighlightCode'] = (props) => {
     [`${prefixCls}-rtl`]: direction === 'rtl',
   });
 
-  // ============================ render ============================
-  if (!lang) {
-    return <code>{children}</code>;
-  }
+  // ============================ locale ============================
+  const [messageApi, contextHolder] = message.useMessage();
 
-  if (!children) return null;
+  const handleCopyCode = async () => {
+    if (!children) return;
+
+    try {
+      await navigator.clipboard.writeText(children.trim());
+      messageApi.open({
+        type: 'success',
+        content: contextLocale.copySuccess,
+      });
+    } catch (error) {
+      console.error('Failed to copy code:', error);
+    }
+  };
 
   const renderTitle = () => {
     if (header === null) return null;
@@ -40,25 +58,34 @@ const HighlightCode: PluginsType['HighlightCode'] = (props) => {
     if (header) return header;
 
     return (
-      <div className={classnames(`${prefixCls}-header`, classNames?.header)}>
-        <span className={classNames?.headerTitle}>{lang}</span>
+      <div className={classnames(`${prefixCls}-header`, classNames?.header)} style={styles.header}>
+        {contextHolder}
+        <span className={classNames?.headerTitle} style={styles.headerTitle}>
+          {lang}
+        </span>
+        <Tooltip title={contextLocale.copy}>
+          <Button type="text" size="small" icon={<CopyOutlined />} onClick={handleCopyCode} />
+        </Tooltip>
       </div>
     );
   };
 
+  // ============================ render ============================
+  if (!children) {
+    return null;
+  }
+
+  if (!lang) {
+    return <code>{children}</code>;
+  }
+
   return (
-    <div className={mergedCls} style={style}>
+    <div className={mergedCls} style={{ ...style, ...styles.root }}>
       {renderTitle()}
-      <div className={classNames?.code}>
+      <div className={classnames(`${prefixCls}-code`, classNames?.code)} style={styles.code}>
         <SyntaxHighlighter
           customStyle={{
-            marginTop: 0,
-            borderBottomLeftRadius: 6,
-            borderBottomRightRadius: 6,
-            border: '1px solid #f6f6f6',
-            borderTop: 0,
-            fontSize: 14,
-            padding: 16,
+            padding: 0,
             background: 'transparent',
           }}
           language={lang}

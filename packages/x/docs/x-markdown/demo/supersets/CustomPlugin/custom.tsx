@@ -3,6 +3,7 @@ import React from 'react';
 import './plugin.css';
 import '@ant-design/x-markdown/themes/light.css';
 import { Popover } from 'antd';
+import { useMarkdownTheme } from '../../_utils';
 
 const content = `
 ## Custom Plugin
@@ -82,6 +83,8 @@ const referenceList = [
 ];
 
 const App = () => {
+  const [className] = useMarkdownTheme();
+
   const footNoteExtension = {
     name: 'footnote',
     level: 'inline' as const,
@@ -114,7 +117,7 @@ const App = () => {
 
   return (
     <XMarkdown
-      className="x-markdown-light"
+      className={className}
       config={{ extensions: [footNoteExtension] }}
       components={{
         footnote: (props: { children: string; href: string; title: string }) => {

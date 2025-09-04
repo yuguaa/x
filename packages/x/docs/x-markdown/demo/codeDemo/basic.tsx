@@ -1,6 +1,8 @@
 import { XMarkdown } from '@ant-design/x-markdown';
 import React from 'react';
 import '@ant-design/x-markdown/themes/light.css';
+import '@ant-design/x-markdown/themes/dark.css';
+import { useMarkdownTheme } from '../_utils';
 
 const content = `
 # h1 Heading 
@@ -125,6 +127,10 @@ Like links, Images also have a footnote style syntax
 [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 `;
 
-const App: React.FC = () => <XMarkdown content={content} className="x-markdown-light" />;
+const App: React.FC = () => {
+  const [className] = useMarkdownTheme();
+
+  return <XMarkdown content={content} className={className} />;
+};
 
 export default App;
