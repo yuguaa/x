@@ -1,6 +1,6 @@
+import type { BubbleData, BubbleListProps } from '@ant-design';
 import { AntDesignOutlined, CopyOutlined, RedoOutlined, UserOutlined } from '@ant-design/icons';
 import { Actions, Bubble } from '@ant-design/x';
-import type { BubbleData, BubbleListProps } from '@ant-design/x/es/bubble';
 import type { GetRef } from 'antd';
 import { Avatar, Button, Flex } from 'antd';
 import React, { useCallback, useEffect } from 'react';

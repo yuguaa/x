@@ -1,7 +1,7 @@
 import { Bubble } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import Mermaid from '@ant-design/x-markdown/plugins/Mermaid';
-import { Flex, Button } from 'antd';
+import { Button, Flex } from 'antd';
 import React from 'react';
 
 const text = `
@@ -96,11 +96,7 @@ const App = () => {
       <Bubble
         content={text.slice(0, index)}
         contentRender={(content) => (
-          <XMarkdown
-            style={{ whiteSpace: 'normal' }}
-            components={{ code: Code }}
-            paragraphTag="div"
-          >
+          <XMarkdown components={{ code: Code }} paragraphTag="div">
             {content}
           </XMarkdown>
         )}
