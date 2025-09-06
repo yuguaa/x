@@ -1,13 +1,14 @@
 import { createStyles } from 'antd-style';
-import React from 'react';
+import React, { useContext } from 'react';
 import useLottie from '../../../hooks/useLottie';
+import Context from '../../../theme/layouts/IndexLayout/Context';
 import Portal from './SceneIntroduction/Portal';
 
-const useStyle = createStyles(({ token, css }) => {
+const useStyle = createStyles(({ token, css }, isOnAgent) => {
   return {
     banner: css`
       width: 100vw;
-      height: calc(100vh - 120px);
+      height: calc(100vh - ${isOnAgent ? 80 : 120}px);
       min-height: 750px;
       margin-block-start: 64px;
       display: flex;
@@ -32,13 +33,15 @@ const useStyle = createStyles(({ token, css }) => {
       height: 100%;
       position: absolute;
       filter: blur(50px);
+      z-index:0;
       background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%);
     `,
   };
 });
 
 const MainBanner: React.FC = () => {
-  const { styles } = useStyle();
+  const { isOnAgent } = useContext(Context);
+  const { styles } = useStyle(isOnAgent);
   const [bgLottieRef, bgAnimation] = useLottie({
     renderer: 'svg',
     loop: false,

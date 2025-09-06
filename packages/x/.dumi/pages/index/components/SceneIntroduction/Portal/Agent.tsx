@@ -1,16 +1,20 @@
+import type { BubbleListProps } from '@ant-design/x';
 import { Bubble } from '@ant-design/x';
-import {
-  AbstractChatProvider,
-  AbstractXRequestClass,
-  TransformMessage,
-  useXChat,
-  XRequestOptions,
-} from '@ant-design/x-sdk';
+import XMarkdown from '@ant-design/x-markdown';
+import HighlightCode from '@ant-design/x-markdown/plugins/HighlightCode';
+import type { AbstractXRequestClass, XRequestOptions } from '@ant-design/x-sdk';
+import { AbstractChatProvider, TransformMessage, useXChat } from '@ant-design/x-sdk';
 import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useEffect, useState } from 'react';
 import { TboxClient } from 'tbox-nodejs-sdk';
 import Sender from './Sender';
+
+const Code = (props: { className: string; children: string }) => {
+  const { className, children } = props;
+  const lang = className?.match(/language-(\w+)/)?.[1] || '';
+  return <HighlightCode lang={lang}>{children}</HighlightCode>;
+};
 
 const tboxClient = new TboxClient({
   httpClientConfig: {
@@ -25,17 +29,24 @@ const useStyle = createStyles(({ token, css }) => {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-block: ${token.marginXL}px;
+        padding-block: ${token.marginXL}px;
         height: 100%;
         width:100%;
+        box-sizing: border-box;
         align-items: center;
         `,
     messageList: css`
         width:100%;
-        height: 600px;
+        height: calc(100% - 160px);
         display: flex;
         flex-direction:column;
         align-items: center;
+        .ant-bubble-start{
+        margin-inline-start: ${token.marginXL * 2}px;
+        }
+        .ant-bubble-end{
+         margin-inline-end: ${token.marginXL * 2}px;
+        }
         `,
     sender: css`
         max-width: 1000px;
@@ -204,6 +215,23 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
     onSubmit(query);
   }, []);
 
+  const role: BubbleListProps['role'] = {
+    assistant: {
+      placement: 'start',
+      loadingRender: () => <Spin size="small" />,
+      contentRender: (content: string | undefined) => (
+        <XMarkdown
+          components={{ code: Code }}
+          paragraphTag="div"
+          streaming={{ hasNextChunk: isRequesting(), enableAnimation: true }}
+        >
+          {content}
+        </XMarkdown>
+      ),
+    },
+    user: { placement: 'end' },
+  };
+
   const [curConversation, setCurConversation] = useState<string>(`${Date.now()}`);
   const { onRequest, messages, isRequesting, abort } = useXChat({
     provider: providerFactory(curConversation), // every conversation has its own provider
@@ -234,9 +262,7 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
       <div className={styles.messageList}>
         <Bubble.List
           style={{
-            maxWidth: 1000,
             width: '100%',
-            paddingInline: (theme?.paddingXL ?? 32) * 2,
           }}
           autoScroll
           items={messages?.map((i) => ({
@@ -250,13 +276,7 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
                 : false,
             key: i.id,
           }))}
-          role={{
-            assistant: {
-              placement: 'start',
-              loadingRender: () => <Spin size="small" />,
-            },
-            user: { placement: 'end' },
-          }}
+          role={role}
         />
       </div>
       <div className={styles.sender}>

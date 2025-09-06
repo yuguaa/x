@@ -17,6 +17,7 @@ const useStyle = createStyles(({ token, css }) => {
       flex-direction: column;
       height: 100%;
       width: 100%;
+      z-index:1;
       min-width: 500px;
    `,
     startPage: css`
