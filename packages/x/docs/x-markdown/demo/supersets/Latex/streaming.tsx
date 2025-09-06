@@ -1,5 +1,5 @@
-import { BubbleListProps } from '@ant-design';
 import { UserOutlined } from '@ant-design/icons';
+import type { BubbleListProps } from '@ant-design/x';
 import { Bubble, Sender } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import Latex from '@ant-design/x-markdown/plugins/Latex';
