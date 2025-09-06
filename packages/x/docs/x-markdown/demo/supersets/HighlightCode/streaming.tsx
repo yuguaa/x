@@ -1,8 +1,8 @@
 import { Bubble } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import HighlightCode from '@ant-design/x-markdown/plugins/HighlightCode';
+import { Button, Flex } from 'antd';
 import React from 'react';
-import { Flex, Button } from 'antd';
 
 const text = `
 Here's a Python code block example that demonstrates how to calculate Fibonacci numbers:
