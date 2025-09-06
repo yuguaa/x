@@ -2,8 +2,13 @@ import type { BubbleListProps } from '@ant-design/x';
 import { Bubble } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import HighlightCode from '@ant-design/x-markdown/plugins/HighlightCode';
-import type { AbstractXRequestClass, XRequestOptions } from '@ant-design/x-sdk';
-import { AbstractChatProvider, TransformMessage, useXChat } from '@ant-design/x-sdk';
+import type { XRequestOptions } from '@ant-design/x-sdk';
+import {
+  AbstractChatProvider,
+  AbstractXRequestClass,
+  TransformMessage,
+  useXChat,
+} from '@ant-design/x-sdk';
 import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useEffect, useState } from 'react';

@@ -69,11 +69,7 @@ const App = () => {
       <Bubble
         content={text.slice(0, index)}
         contentRender={(content) => (
-          <XMarkdown
-            style={{ whiteSpace: 'normal' }}
-            components={{ think: ThinkComponent }}
-            paragraphTag="div"
-          >
+          <XMarkdown components={{ think: ThinkComponent }} paragraphTag="div">
             {content}
           </XMarkdown>
         )}
