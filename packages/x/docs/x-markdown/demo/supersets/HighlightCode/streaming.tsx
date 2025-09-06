@@ -1,11 +1,10 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Bubble, Sender, useXAgent, useXChat } from '@ant-design/x';
-import { BubbleListProps } from '@ant-design/x/es/bubble';
+import { Bubble } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import HighlightCode from '@ant-design/x-markdown/plugins/HighlightCode';
 import React from 'react';
+import { Flex, Button } from 'antd';
 
-const fullContent = `
+const text = `
 Here's a Python code block example that demonstrates how to calculate Fibonacci numbers:
 
 \`\`\` python
@@ -46,83 +45,55 @@ This code includes:
 You can modify the parameters or output format as needed. The Fibonacci sequence here starts with fib(1) = 1, fib(2) = 1.
 `;
 
-const roles: BubbleListProps['role'] = {
-  ai: {
-    placement: 'start',
-    components: {
-      avatar: <UserOutlined />,
-    },
-  },
-  local: {
-    placement: 'end',
-    components: {
-      avatar: <UserOutlined />,
-    },
-  },
+const Code = (props: { className: string; children: string }) => {
+  const { className, children } = props;
+  const lang = className?.match(/language-(\w+)/)?.[1] || '';
+  return <HighlightCode lang={lang}>{children}</HighlightCode>;
 };
 
 const App = () => {
-  const [content, setContent] = React.useState('');
+  const [index, setIndex] = React.useState(0);
+  const timer = React.useRef<any>(-1);
 
-  // Agent for request
-  const [agent] = useXAgent<string, { message: string }, string>({
-    request: async (_, { onSuccess, onUpdate }) => {
-      let currentContent = '';
+  const renderStream = () => {
+    if (index >= text.length) {
+      clearTimeout(timer.current);
+      return;
+    }
+    timer.current = setTimeout(() => {
+      setIndex((prev) => prev + 5);
+      renderStream();
+    }, 20);
+  };
 
-      const id = setInterval(() => {
-        const addCount = Math.floor(Math.random() * 30);
-        currentContent = fullContent.slice(0, currentContent.length + addCount);
-        onUpdate(currentContent);
-        if (currentContent === fullContent) {
-          clearInterval(id);
-          onSuccess([fullContent]);
-        }
-      }, 100);
-    },
-  });
-
-  // Chat messages
-  const { onRequest, messages } = useXChat({
-    agent,
-  });
+  React.useEffect(() => {
+    if (index === text.length) return;
+    renderStream();
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, [index]);
 
   return (
-    <div style={{ height: 500, display: 'flex', flexDirection: 'column' }}>
-      <Bubble.List
-        role={roles}
-        style={{ flex: 1 }}
-        items={messages.map(({ id, message, status }) => ({
-          key: id,
-          role: status === 'local' ? 'local' : 'ai',
-          content: message,
-          contentRender:
-            status === 'local'
-              ? undefined
-              : (content) => (
-                  <XMarkdown
-                    content={content as string}
-                    components={{
-                      code: (props: any) => {
-                        const { class: className, children } = props;
-                        const lang = className?.replace('language-', '');
-                        return <HighlightCode lang={lang}>{children}</HighlightCode>;
-                      },
-                    }}
-                  />
-                ),
-        }))}
+    <Flex vertical gap="small">
+      <Button style={{ alignSelf: 'flex-end' }} onClick={() => setIndex(0)}>
+        Re-Render
+      </Button>
+
+      <Bubble
+        content={text.slice(0, index)}
+        contentRender={(content) => (
+          <XMarkdown
+            style={{ whiteSpace: 'normal' }}
+            components={{ code: Code }}
+            paragraphTag="div"
+          >
+            {content}
+          </XMarkdown>
+        )}
+        variant="outlined"
       />
-      <Sender
-        loading={agent.isRequesting()}
-        value={content}
-        onChange={setContent}
-        style={{ marginTop: 48 }}
-        onSubmit={(nextContent) => {
-          onRequest(nextContent);
-          setContent('');
-        }}
-      />
-    </div>
+    </Flex>
   );
 };
 

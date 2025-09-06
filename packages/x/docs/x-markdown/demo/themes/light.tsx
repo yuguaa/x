@@ -108,6 +108,12 @@ export default App;
 
 `;
 
-const App = () => <XMarkdown content={content} className="x-markdown-light" />;
+const App = () => {
+  return (
+    <div style={{ background: '#fff', padding: 16, borderRadius: 6 }}>
+      <XMarkdown content={content} className="x-markdown-light" />
+    </div>
+  );
+};
 
 export default App;

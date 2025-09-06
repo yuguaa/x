@@ -1,8 +1,10 @@
+import { Bubble } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import Mermaid from '@ant-design/x-markdown/plugins/Mermaid';
+import { Flex, Button } from 'antd';
 import React from 'react';
 
-const content = `
+const text = `
 Here are several Mermaid diagram examples 
 
 #### 1. Flowchart (Vertical)
@@ -53,21 +55,58 @@ quadrantChart
 \`\`\`
 `;
 
+const Code = (props: { className: string; children: string }) => {
+  const { className, children } = props;
+  const lang = className?.match(/language-(\w+)/)?.[1] || '';
+  if (lang === 'mermaid') {
+    return <Mermaid>{children}</Mermaid>;
+  }
+  return <code>{children}</code>;
+};
+
 const App = () => {
+  const [index, setIndex] = React.useState(0);
+  const timer = React.useRef<any>(-1);
+
+  const renderStream = () => {
+    if (index >= text.length) {
+      clearTimeout(timer.current);
+      return;
+    }
+    timer.current = setTimeout(() => {
+      setIndex((prev) => prev + 5);
+      renderStream();
+    }, 20);
+  };
+
+  React.useEffect(() => {
+    if (index === text.length) return;
+    renderStream();
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, [index]);
+
   return (
-    <XMarkdown
-      components={{
-        code: (props: any) => {
-          const { class: className, children } = props;
-          const lang = className?.replace('language-', '');
-          if (lang === 'mermaid') {
-            return <Mermaid>{children}</Mermaid>;
-          }
-        },
-      }}
-    >
-      {content}
-    </XMarkdown>
+    <Flex vertical gap="small">
+      <Button style={{ alignSelf: 'flex-end' }} onClick={() => setIndex(0)}>
+        Re-Render
+      </Button>
+
+      <Bubble
+        content={text.slice(0, index)}
+        contentRender={(content) => (
+          <XMarkdown
+            style={{ whiteSpace: 'normal' }}
+            components={{ code: Code }}
+            paragraphTag="div"
+          >
+            {content}
+          </XMarkdown>
+        )}
+        variant="outlined"
+      />
+    </Flex>
   );
 };
 

@@ -12,8 +12,7 @@ When you need to render highlighted code blocks in Markdown.
 ## Code Demo
 
 <!-- prettier-ignore -->
-<code src="./demo/supersets/HighlightCode/basic.tsx">Basic Usage</code>
-<code src="./demo/supersets/HighlightCode/streaming.tsx">Streaming Conversation</code>
+<code src="./demo/supersets/HighlightCode/basic.tsx"></code>
 
 ## API
 
@@ -27,6 +26,10 @@ When you need to render highlighted code blocks in Markdown.
 | classNames | Style class names | `string` | - |
 | highlightProps | Code highlighting configuration | [`highlightProps`](https://github.com/react-syntax-highlighter/react-syntax-highlighter?tab=readme-ov-file#props) | - |
 
-## Design Tokens
+## Semantic DOM
 
-<ComponentTokenTable component="HighlightCode"></ComponentTokenTable>
+<code src="./demo/supersets/HighlightCode/_semantic.tsx" simplify="true"></code>
+
+## Design Token
+
+<XMarkdownComponentTokenTable component="HighlightCode"></XMarkdownComponentTokenTable>

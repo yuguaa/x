@@ -4,6 +4,7 @@ import XMarkdown from '@ant-design/x-markdown';
 import { Avatar, Flex, Slider, Space, Typography } from 'antd';
 import React from 'react';
 import '@ant-design/x-markdown/themes/light.css';
+import { useMarkdownTheme } from '../_utils';
 
 const { Text } = Typography;
 
@@ -51,9 +52,11 @@ const text = `
 乌镇完美融合了古典水乡风情与现代文化活力，无论是追寻历史，还是享受慢生活，都是理想之选！如果想了解具体景点或行程规划，欢迎继续提问~ 🚣‍♀️
 `;
 
-const RenderMarkdown: BubbleProps['contentRender'] = (content) => (
-  <XMarkdown className="x-markdown-light">{content}</XMarkdown>
-);
+const RenderMarkdown: BubbleProps['contentRender'] = (content) => {
+  const [className] = useMarkdownTheme();
+
+  return <XMarkdown className={className}>{content}</XMarkdown>;
+};
 
 const App: React.FC = () => {
   const [value, setValue] = React.useState(1);
