@@ -4,7 +4,7 @@ import XMarkdown from '@ant-design/x-markdown';
 import { Button, Row } from 'antd';
 import React, { useState } from 'react';
 import '@ant-design/x-markdown/themes/light.css';
-import { BubbleListProps } from '@ant-design/x/es/bubble';
+import { BubbleListProps } from '@ant-design/x';
 
 const fullContent = `
 乌镇是中国著名的江南水乡古镇，位于浙江省嘉兴市桐乡市，地处杭嘉湖平原，距离杭州约80公里。以下是关于乌镇的详细介绍：

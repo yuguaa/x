@@ -1,5 +1,5 @@
+import type { BubbleData } from '@ant-design/x';
 import { Bubble, Prompts, useXAgent, useXChat, Welcome } from '@ant-design/x';
-import type { BubbleData } from '@ant-design/x/es/bubble/interface';
 import { Flex, type GetProp, Skeleton } from 'antd';
 import { createStyles } from 'antd-style';
 import React from 'react';

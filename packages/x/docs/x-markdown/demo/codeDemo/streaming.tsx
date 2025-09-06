@@ -3,7 +3,7 @@ import { Bubble, Sender, useXAgent, useXChat } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import React, { useState } from 'react';
 import '@ant-design/x-markdown/themes/light.css';
-import { BubbleListProps } from '@ant-design/x/es/bubble';
+import { BubbleListProps } from '@ant-design/x';
 
 const fullContent = `
 The Ant Design team presents the RICH paradigm, crafting superior AI interface solutions and pioneering intelligent experiences.

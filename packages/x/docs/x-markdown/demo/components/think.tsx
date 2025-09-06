@@ -3,7 +3,7 @@ import { Bubble, Sender, Think, useXAgent, useXChat } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import React from 'react';
 import '@ant-design/x-markdown/themes/light.css';
-import { BubbleListProps } from '@ant-design/x/es/bubble';
+import { BubbleListProps } from '@ant-design/x';
 
 const fullContent = `
 <think>Deep thinking is a systematic and structured cognitive approach that requires individuals to move beyond intuition and superficial information, delving into the essence of a problem and its underlying principles through logical analysis, multi-perspective examination, and persistent inquiry. Unlike quick reactions or heuristic judgments, deep thinking emphasizes ​slow thinking, actively engaging knowledge reserves, critical thinking, and creativity to uncover deeper connections and meanings.
