@@ -21,13 +21,18 @@ const genHighlightCodeStyle: GenerateStyle<HighlightCodeToken> = (token) => {
         borderTopRightRadius: token.borderRadius,
       },
       '&-code': {
-        border: '1px solid',
+        borderWidth: token.lineWidth,
+        borderStyle: token.lineType,
         borderColor: token.colorBorderCode,
         borderBottomRightRadius: token.borderRadius,
         borderBottomLeftRadius: token.borderRadius,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        background: 'transparent',
+        background: token.colorBgContainer,
+        overflow: 'hidden',
+        code: {
+          borderRadius: 0,
+        },
       },
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
