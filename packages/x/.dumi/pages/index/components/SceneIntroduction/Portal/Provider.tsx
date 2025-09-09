@@ -170,6 +170,9 @@ const Provider: React.FC<{
     <XProvider
       theme={{
         components: {
+          Button: {
+            colorPrimary: '#ffffff',
+          },
           Sender: {
             colorPrimary: '#ffffff',
             switchColorBorder: 'rgba(255,255,255,.2)',

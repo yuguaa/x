@@ -56,9 +56,12 @@ export const useStyle = createStyles(({ css, token }) => {
 
 const CustomizationSender: React.FC<{
   onSubmit: (text: string) => void;
+  loading: boolean;
+  abort: () => void;
 }> = (props) => {
   const { styles } = useStyle();
   const [locale] = useLocale(locales);
+  const [mergeLoading, setMergeLoading] = useState(false);
   const senderRef = useRef<GetRef<typeof Sender>>(null);
   const [activeKey, setActiveKey] = useState('');
   const options = Object.keys(tokenData) || [];
@@ -104,6 +107,9 @@ const CustomizationSender: React.FC<{
   ];
 
   useEffect(() => {
+    setMergeLoading(props.loading);
+  }, [props.loading]);
+  useEffect(() => {
     senderRef.current?.focus();
   }, []);
 
@@ -115,7 +121,9 @@ const CustomizationSender: React.FC<{
     <Sender
       ref={senderRef}
       placeholder={locale.placeholder}
+      loading={mergeLoading}
       className={styles.sender}
+      onCancel={props.abort}
       key={activeKey}
       styles={{
         input: {
@@ -124,12 +132,15 @@ const CustomizationSender: React.FC<{
       }}
       autoSize={{ minRows: 2, maxRows: 2 }}
       onSubmit={(value) => {
+        setMergeLoading(true);
         props.onSubmit(value);
         senderRef.current?.clear?.();
       }}
       initialSlotConfig={SlotInfo.find(({ key }) => key === activeKey)?.slotConfig}
       suffix={false}
-      footer={() => {
+      footer={(_, info) => {
+        const { LoadingButton } = info.components;
+
         return (
           <Flex justify="space-between" align="center">
             <Flex gap="small">
@@ -150,18 +161,22 @@ const CustomizationSender: React.FC<{
                 />
               ))}
             </Flex>
-            <Button
-              type="text"
-              style={{ padding: 0 }}
-              onClick={() => {}}
-              icon={
-                <img
-                  alt="send"
-                  loading="lazy"
-                  src="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*4e5sTY9lU3sAAAAAAAAAAAAADgCCAQ/original"
-                />
-              }
-            />
+            {mergeLoading ? (
+              <LoadingButton />
+            ) : (
+              <Button
+                type="text"
+                style={{ padding: 0 }}
+                onClick={() => {}}
+                icon={
+                  <img
+                    alt="send"
+                    loading="lazy"
+                    src="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*4e5sTY9lU3sAAAAAAAAAAAAADgCCAQ/original"
+                  />
+                }
+              />
+            )}
           </Flex>
         );
       }}

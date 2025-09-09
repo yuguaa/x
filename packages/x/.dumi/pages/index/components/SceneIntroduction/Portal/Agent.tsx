@@ -9,7 +9,6 @@ import {
   TransformMessage,
   useXChat,
 } from '@ant-design/x-sdk';
-import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useEffect, useState } from 'react';
 import { TboxClient } from 'tbox-nodejs-sdk';
@@ -39,6 +38,9 @@ const useStyle = createStyles(({ token, css }) => {
         width:100%;
         box-sizing: border-box;
         align-items: center;
+        .ant-bubble{
+          width: 900px
+        }
         `,
     messageList: css`
         width:100%;
@@ -192,7 +194,7 @@ interface AgentProps {
   query: string;
 }
 const Agent: React.FC<AgentProps> = ({ query }) => {
-  const { styles, theme } = useStyle();
+  const { styles } = useStyle();
   // ==================== Runtime ====================
   const providerCaches = new Map<string, TBoxProvider>();
   const providerFactory = (conversationKey: string) => {
@@ -223,18 +225,24 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
   const role: BubbleListProps['role'] = {
     assistant: {
       placement: 'start',
-      loadingRender: () => <Spin size="small" />,
-      contentRender: (content: string | undefined) => (
-        <XMarkdown
-          components={{ code: Code }}
-          paragraphTag="div"
-          streaming={{ hasNextChunk: isRequesting(), enableAnimation: true }}
-        >
-          {content}
-        </XMarkdown>
-      ),
+      contentRender: (content) => {
+        return (
+          <XMarkdown
+            components={{ code: Code }}
+            paragraphTag="div"
+            streaming={{ hasNextChunk: content.status === 'loading', enableAnimation: true }}
+          >
+            {content.text}
+          </XMarkdown>
+        );
+      },
     },
-    user: { placement: 'end' },
+    user: {
+      placement: 'end',
+      contentRender: (content) => {
+        return content.text;
+      },
+    },
   };
 
   const [curConversation, setCurConversation] = useState<string>(`${Date.now()}`);
@@ -243,7 +251,7 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
     conversationKey: curConversation,
     requestPlaceholder: () => {
       return {
-        content: 'loading',
+        content: '',
         role: 'assistant',
       };
     },
@@ -261,31 +269,34 @@ const Agent: React.FC<AgentProps> = ({ query }) => {
     },
   });
 
-  console.log(setCurConversation, isRequesting, abort);
+  const items: BubbleListProps['items'] = messages?.map((i) => ({
+    content: {
+      status: i.status,
+      text: i.message.content,
+    },
+    role: i.message.role,
+    classNames: {
+      content: i.status === 'loading' ? styles.loadingMessage : '',
+    },
+    loading: true,
+    key: i.id,
+  }));
+
   return (
     <div className={styles.container}>
       <div className={styles.messageList}>
         <Bubble.List
           style={{
             width: '100%',
+            alignItems: 'center',
           }}
           autoScroll
-          items={messages?.map((i) => ({
-            ...i.message,
-            classNames: {
-              content: i.status === 'loading' ? styles.loadingMessage : '',
-            },
-            typing:
-              i.status === 'loading'
-                ? { effect: 'typing', suffix: <>💗</>, keepPrefix: true }
-                : false,
-            key: i.id,
-          }))}
+          items={items}
           role={role}
         />
       </div>
       <div className={styles.sender}>
-        <Sender onSubmit={onSubmit} />
+        <Sender onSubmit={onSubmit} abort={abort} loading={isRequesting() || false} />
       </div>
     </div>
   );
