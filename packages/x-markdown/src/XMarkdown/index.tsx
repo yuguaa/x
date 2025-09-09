@@ -17,6 +17,7 @@ const XMarkdown: React.FC<XMarkdownProps> = (props) => {
     prefixCls: customizePrefixCls,
     className,
     style,
+    openLinksInNewTab,
   } = props;
 
   // ============================ style ============================
@@ -41,10 +42,16 @@ const XMarkdown: React.FC<XMarkdownProps> = (props) => {
   // ============================ Render ============================
   if (!displayContent) return null;
 
-  const parser = new Parser({ markedConfig: config, paragraphTag });
+  const parser = new Parser({
+    markedConfig: config,
+    paragraphTag,
+    openLinksInNewTab,
+  });
 
   const renderComponents = { ...animationComponents, ...(components || {}) };
-  const renderer = new Renderer({ components: renderComponents });
+  const renderer = new Renderer({
+    components: renderComponents,
+  });
 
   const htmlString = parser.parse(displayContent);
   return (

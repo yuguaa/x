@@ -72,7 +72,7 @@ const App = () => {
     [content],
   );
 
-  const { onRequest, messages, isRequesting } = useXChat({
+  const { onRequest, messages } = useXChat({
     provider: provider,
     requestPlaceholder: 'Waiting...',
     requestFallback: 'Mock failed return. Please try again later.',
@@ -103,7 +103,6 @@ const App = () => {
         }))}
       />
       <Sender
-        loading={isRequesting()}
         value={content}
         onChange={setContent}
         style={{ marginTop: 48 }}
