@@ -21,17 +21,26 @@ const genHighlightCodeStyle: GenerateStyle<HighlightCodeToken> = (token) => {
         borderTopRightRadius: token.borderRadius,
       },
       '&-code': {
-        borderWidth: token.lineWidth,
-        borderStyle: token.lineType,
-        borderColor: token.colorBorderCode,
         borderBottomRightRadius: token.borderRadius,
         borderBottomLeftRadius: token.borderRadius,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         background: token.colorBgContainer,
+        border: `1px solid ${token.colorBgTitle}`,
+        borderTop: 'none',
+        paddingInline: token.paddingSM,
+        paddingBlock: token.paddingSM,
         overflow: 'hidden',
-        code: {
+        'pre,code': {
+          whiteSpace: 'pre',
+          fontSize: token.fontSize,
+          fontFamily: token.fontFamilyCode,
+          lineHeight: 2,
           borderRadius: 0,
+          border: 'none',
+        },
+        "code[class*='language-'],pre[class*='language-']": {
+          background: 'none',
         },
       },
       [`&${componentCls}-rtl`]: {

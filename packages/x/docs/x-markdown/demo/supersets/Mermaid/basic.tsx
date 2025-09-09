@@ -95,6 +95,11 @@ const App = () => {
 
       <Bubble
         content={text.slice(0, index)}
+        styles={{
+          content: {
+            width: 700,
+          },
+        }}
         contentRender={(content) => (
           <XMarkdown components={{ code: Code }} paragraphTag="div">
             {content}
