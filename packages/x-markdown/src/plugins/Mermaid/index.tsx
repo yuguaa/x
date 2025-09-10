@@ -16,6 +16,26 @@ enum RenderType {
   Image = 'image',
 }
 
+let mermaidOriginContainer: HTMLElement | null = null;
+
+function getMermaidOriginContainer(): HTMLElement {
+  if (!mermaidOriginContainer) {
+    mermaidOriginContainer = document.querySelector(
+      '.x-markdown-mermaid-origin-container',
+    ) as HTMLElement;
+    if (!mermaidOriginContainer) {
+      mermaidOriginContainer = document.createElement('div') as HTMLElement;
+      mermaidOriginContainer.ariaHidden = 'true';
+      mermaidOriginContainer.style.maxHeight = '0';
+      mermaidOriginContainer.style.opacity = '0';
+      mermaidOriginContainer.style.overflow = 'hidden';
+      mermaidOriginContainer.classList.add('x-markdown-mermaid-origin-container');
+      document.body.append(mermaidOriginContainer);
+    }
+  }
+  return mermaidOriginContainer;
+}
+
 mermaid.initialize({
   startOnLoad: false,
   securityLevel: 'loose',
@@ -66,7 +86,10 @@ const Mermaid: PluginsType['Mermaid'] = React.memo((props) => {
       if (!isValid) throw new Error('Invalid Mermaid syntax');
 
       const newText = children.replace(/[`\s]+$/g, '');
-      const { svg } = await mermaid.render(id, newText, containerRef.current);
+
+      const originContainer = getMermaidOriginContainer();
+
+      const { svg } = await mermaid.render(id, newText, originContainer);
 
       containerRef.current.innerHTML = svg;
     } catch (error) {
