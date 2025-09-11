@@ -1,4 +1,3 @@
-import { UserOutlined } from '@ant-design/icons';
 import { Bubble, Sender } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import { DefaultChatProvider, useXChat, XRequest } from '@ant-design/x-sdk';
