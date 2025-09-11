@@ -80,8 +80,6 @@ class Renderer {
         'type',
         'disabled',
       ],
-      // Add target attribute support
-      ADD_ATTR: ['target'],
       // Custom component handling
       CUSTOM_ELEMENT_HANDLING: {
         tagNameCheck: (tagName: string) => {
