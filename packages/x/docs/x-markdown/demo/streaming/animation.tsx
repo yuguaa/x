@@ -5,7 +5,7 @@ import { Button, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
 import '@ant-design/x-markdown/themes/light.css';
 import type { BubbleListProps } from '@ant-design/x';
-import { mockFetch } from '../_utils';
+import { mockFetch, useMarkdownTheme } from '../_utils';
 
 const fullContent = `
 乌镇是中国著名的江南水乡古镇，位于浙江省嘉兴市桐乡市，地处杭嘉湖平原，距离杭州约80公里。以下是关于乌镇的详细介绍：
@@ -68,6 +68,8 @@ const roles: BubbleListProps['role'] = {
 const App = () => {
   const [enableAnimation, setEnableAnimation] = useState(true);
   const [content, setContent] = React.useState('');
+  const [className] = useMarkdownTheme();
+
   let chunks = '';
   const provider = useMemo(
     () =>
@@ -126,7 +128,7 @@ const App = () => {
                 ? (content) => content
                 : (content, { status }) => (
                     <XMarkdown
-                      className="x-markdown-light"
+                      className={className}
                       content={content as string}
                       streaming={{ hasNextChunk: status === 'updating', enableAnimation }}
                     />
