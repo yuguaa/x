@@ -16,17 +16,18 @@ import React from 'react';
  * 🔔 Please replace the BASE_URL, PATH, MODEL, API_KEY with your own values.
  */
 
-const BASE_URL = 'https://api.x.ant.design/api/llm_cloudflare_llama-3.3-70b-instruct-fp8-fast';
+const BASE_URL = 'https://api.x.ant.design/api/llm_cloudflare_qwq-32b';
 
 /**
  * 🔔 The MODEL is fixed in the current request, please replace it with your BASE_UR and MODEL
  */
 
-const MODEL = 'llama-3.3-70b-instruct-fp8-fast';
+const MODEL = 'qwq-32b';
 
 const role: BubbleListProps['role'] = {
   assistant: {
     placement: 'start',
+
     contentRender(content: any) {
       // Double '\n' in a mark will causes markdown parse as a new paragraph, so we need to replace it with a single '\n'
       const newContent = content.replaceAll('\n\n', '<br/><br/>');
