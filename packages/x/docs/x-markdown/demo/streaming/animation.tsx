@@ -6,7 +6,7 @@ import { Button, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
 import '@ant-design/x-markdown/themes/light.css';
 import type { BubbleListProps } from '@ant-design/x';
-import { mockFetch } from '../_utils';
+import { mockFetch, useMarkdownTheme } from '../_utils';
 
 interface ChatInput {
   query: string;
@@ -74,6 +74,8 @@ const roles: BubbleListProps['role'] = {
 const App = () => {
   const [enableAnimation, setEnableAnimation] = useState(true);
   const [content, setContent] = React.useState('');
+  const [className] = useMarkdownTheme();
+
   let chunks = '';
   const provider = useMemo(
     () =>
@@ -130,7 +132,7 @@ const App = () => {
                 ? (content) => content?.query
                 : (content, { status }) => (
                     <XMarkdown
-                      className="x-markdown-light"
+                      className={className}
                       content={content as string}
                       streaming={{ hasNextChunk: status === 'updating', enableAnimation }}
                     />
