@@ -1,9 +1,9 @@
 import { SyncOutlined } from '@ant-design/icons';
 import type { BubbleListProps } from '@ant-design/x';
-import { Bubble, Sender } from '@ant-design/x';
+import { Bubble, Sender, Think } from '@ant-design/x';
 import XMarkdown from '@ant-design/x-markdown';
 import {
-  OpenAIChatProvider,
+  DeepSeekChatProvider,
   useXChat,
   XModelParams,
   XModelResponse,
@@ -16,13 +16,31 @@ import React from 'react';
  * 🔔 Please replace the BASE_URL, PATH, MODEL, API_KEY with your own values.
  */
 
-const BASE_URL = 'https://api.x.ant.design/api/llm_cloudflare_llama-3.3-70b-instruct-fp8-fast';
+const BASE_URL = 'https://api.x.ant.design/api/llm_siliconflow_deepSeek-r1-distill-1wen-7b';
 
 /**
  * 🔔 The MODEL is fixed in the current request, please replace it with your BASE_UR and MODEL
  */
 
-const MODEL = 'llama-3.3-70b-instruct-fp8-fast';
+const MODEL = 'DeepSeek-R1-Distill-Qwen-7B';
+
+const ThinkComponent = React.memo((props: { children: string; streamStatus: string }) => {
+  const [title, setTitle] = React.useState('Deep thinking...');
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (props.streamStatus === 'done') {
+      setTitle('Complete thinking');
+      setLoading(false);
+    }
+  }, [props.streamStatus]);
+
+  return (
+    <Think title={title} loading={loading}>
+      {props.children}
+    </Think>
+  );
+});
 
 const role: BubbleListProps['role'] = {
   assistant: {
@@ -30,7 +48,14 @@ const role: BubbleListProps['role'] = {
     contentRender(content: any) {
       // Double '\n' in a mark will causes markdown parse as a new paragraph, so we need to replace it with a single '\n'
       const newContent = content.replaceAll('\n\n', '<br/><br/>');
-      return <XMarkdown content={newContent} />;
+      return (
+        <XMarkdown
+          content={newContent}
+          components={{
+            think: ThinkComponent,
+          }}
+        />
+      );
     },
   },
   user: {
@@ -41,7 +66,7 @@ const role: BubbleListProps['role'] = {
 const App = () => {
   const [content, setContent] = React.useState('');
   const [provider] = React.useState(
-    new OpenAIChatProvider({
+    new DeepSeekChatProvider({
       request: XRequest<XModelParams, XModelResponse>(BASE_URL, {
         manual: true,
         params: {
@@ -78,11 +103,9 @@ const App = () => {
       <Bubble.List
         role={role}
         style={{ maxHeight: 300 }}
-        items={messages.map(({ id, message, status }) => ({
+        items={messages.map(({ id, message }) => ({
           key: id,
           role: message.role,
-          status: status,
-          loading: status === 'loading',
           content: message.content,
           components:
             message.role === 'assistant'
