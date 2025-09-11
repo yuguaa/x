@@ -27,7 +27,7 @@ const XMarkdown: React.FC<XMarkdownProps> = (props) => {
 
   const prefixCls = getPrefixCls('x-markdown', customizePrefixCls);
 
-  const mergedCls = classnames(prefixCls, rootClassName, className);
+  const mergedCls = classnames('x-markdown', prefixCls, rootClassName, className);
 
   const mergedStyle: React.CSSProperties = {
     direction: contextDirection === 'rtl' ? 'rtl' : 'ltr',
