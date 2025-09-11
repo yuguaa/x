@@ -114,7 +114,6 @@ const App = () => {
   const [enableStreaming, setEnableStreaming] = useState(true);
   const [content, setContent] = React.useState('');
   const [className] = useMarkdownTheme();
-  const [hasNextChunk, setHasNextChunk] = React.useState(false);
 
   let chunks = '';
   const provider = useMemo(
@@ -122,7 +121,7 @@ const App = () => {
       new DefaultChatProvider<string, ChatInput, string>({
         request: XRequest('https://api.example.com/chat', {
           manual: true,
-          fetch: () => mockFetch(fullContent, () => setHasNextChunk(false)),
+          fetch: () => mockFetch(fullContent),
           transformStream: new TransformStream<string, string>({
             transform(chunk, controller) {
               chunks += chunk;
@@ -174,7 +173,7 @@ const App = () => {
                     <XMarkdown
                       className={className}
                       content={content as string}
-                      streaming={{ hasNextChunk: enableStreaming && hasNextChunk }}
+                      streaming={{ hasNextChunk: enableStreaming && isRequesting }}
                     />
                   ),
           }))}
@@ -188,7 +187,6 @@ const App = () => {
             onRequest({
               query: nextContent,
             });
-            setHasNextChunk(true);
             setContent('');
           }}
         />
