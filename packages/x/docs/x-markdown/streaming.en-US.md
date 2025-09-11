@@ -18,11 +18,11 @@ Optimize streaming Markdown rendering in LLM scenarios by caching to hide markdo
 
 ### streaming
 
-| Parameter       | Description                          | Type               | Default |
-| --------------- | ------------------------------------ | ------------------ | ------- |
-| hasNextChunk    | Whether there is more streaming data | `boolean`          | `false` |
-| enableAnimation | Enable text fade-in animation        | `boolean`          | `false` |
-| animationConfig | Text animation configuration         | `ControllerUpdate` | -       |
+| Parameter | Description | Type | Default |
+| --- | --- | --- | --- |
+| hasNextChunk | Whether there is more streaming data | `boolean` | `false` |
+| enableAnimation | Enable text fade-in animation | `boolean` | `false` |
+| animationConfig | Text animation configuration | [`ControllerUpdate`](https://react-spring.dev/docs/typescript#controllerupdate) | `{ from: { opacity: 0 }, to: { opacity: 1 }, config: { tension: 170, friction: 26 } }` |
 
 ### Usage Example
 

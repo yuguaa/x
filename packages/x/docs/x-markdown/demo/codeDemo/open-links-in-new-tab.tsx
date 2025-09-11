@@ -27,10 +27,10 @@ export default () => {
   return (
     <div>
       <h3>启用新标签页打开链接</h3>
-      <XMarkdown className={className} openLinksInNewTab={true} content={markdownContent} />
+      <XMarkdown className={className} openLinksInNewTab content={markdownContent} />
 
       <h3 style={{ marginTop: 32 }}>禁用新标签页打开链接（默认）</h3>
-      <XMarkdown className={className} openLinksInNewTab={false} content={markdownContent} />
+      <XMarkdown className={className} content={markdownContent} />
     </div>
   );
 };
