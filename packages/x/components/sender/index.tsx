@@ -324,7 +324,11 @@ const ForwardSender = React.forwardRef<SenderRef, SenderProps>((props, ref) => {
               {headerNode}
             </SendHeaderContext.Provider>
           )}
-          <div className={`${prefixCls}-content`} onMouseDown={onContentMouseDown}>
+          <div
+            className={classnames(`${prefixCls}-content`, classNames.content)}
+            style={styles.content}
+            onMouseDown={onContentMouseDown}
+          >
             {/* Prefix */}
             {prefixNode && (
               <div
