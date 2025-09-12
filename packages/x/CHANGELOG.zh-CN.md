@@ -15,8 +15,6 @@ tag: vVERSION
 
 ---
 
-<<<<<<< HEAD:packages/x/CHANGELOG.zh-CN.md
-
 ## 2.0.0-alpha.6
 
 `2025-08-28`
@@ -86,7 +84,7 @@ tag: vVERSION
 - 🔥 新工具 useXConversations。
 - 🔥 新工具 Chat Provider。
 - 🔥 新工具 XRequest。
-- # 🔥 新工具 XStream。
+- 🔥 新工具 XStream。
 
 ## 1.6.1
 

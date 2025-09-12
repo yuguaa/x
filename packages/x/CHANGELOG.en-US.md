@@ -16,8 +16,6 @@ tag: vVERSION
 
 ---
 
-<<<<<<< HEAD:packages/x/CHANGELOG.en-US.md
-
 ## 2.0.0-alpha.6
 
 `2025-08-28`
@@ -83,7 +81,7 @@ tag: vVERSION
 - 🔥 New utility: useXConversations.
 - 🔥 New utility: Chat Provider.
 - 🔥 New utility: XRequest.
-- # 🔥 New utility: XStream.
+- 🔥 New utility: XStream.
 
 ## 1.6.1
 
