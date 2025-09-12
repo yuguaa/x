@@ -65,7 +65,6 @@ const Mermaid: PluginsType['Mermaid'] = React.memo((props) => {
       const isValid = await mermaid.parse(children, { suppressErrors: true });
       if (!isValid) throw new Error('Invalid Mermaid syntax');
 
-      console.log('renderDiagram');
       const newText = children.replace(/[`\s]+$/g, '');
       const { svg } = await mermaid.render(id, newText, containerRef.current);
 
