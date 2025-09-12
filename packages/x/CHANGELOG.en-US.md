@@ -94,7 +94,6 @@ tag: vVERSION
 - 🐛 Fixed missing `updating` status in useXChat. [#833](https://github.com/ant-design/x/pull/833) by [@wzc520pyfm](https://github.com/wzc520pyfm).
 - 🐛 Fixed the exception in Suggestion component when items is an empty array in `useActive`. [#824](https://github.com/ant-design/x/pull/824) by [@LengYXin](https://github.com/LengYXin).
 - 📖 Improved the official site for better user experience. [#960](https://github.com/ant-design/x/pull/960) by [@wzc520pyfm](https://github.com/wzc520pyfm), [#1048](https://github.com/ant-design/x/pull/1048) by [@wzc520pyfm](https://github.com/wzc520pyfm), [#1118](https://github.com/ant-design/x/pull/1118) by [@afc163](https://github.com/afc163), [#1122](https://github.com/ant-design/x/pull/1122) by [@fireairforce](https://github.com/fireairforce), [#1120](https://github.com/ant-design/x/pull/1120) by [@IsDyh01](https://github.com/IsDyh01).
-  > > > > > > > bd067c58c892d722cc27d4631c3c8db4afdaa055:CHANGELOG.en-US.md
 
 ## 1.6.0
 
