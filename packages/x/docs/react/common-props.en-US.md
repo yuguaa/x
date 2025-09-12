@@ -12,7 +12,7 @@ order: 1
 | ------------- | ----------------------------------- | ---------------------------- | ------- |
 | prefixCls     | Unified style prefix                | string                       | -       |
 | style         | Custom style                        | CSSProperties                | -       |
-| className     | Custom class name                   | string                       | -       |
 | styles        | Semantic style                      | Record<string,CSSProperties> | -       |
+| className     | Custom class name                   | string                       | -       |
 | classNames    | Semantic custom class name          | Record<string,string>        | -       |
 | rootClassName | Class name on the outermost element | string                       | -       |
