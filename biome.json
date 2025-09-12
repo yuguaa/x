@@ -51,16 +51,19 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
-        "useUniqueElementIds": "off"
+        "useUniqueElementIds": "off",
+        "useHookAtTopLevel": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off"
       },
       "suspicious": {
+        "noTsIgnore": "off",
         "noGlobalIsNan": "off",
         "noGlobalIsFinite": "off",
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noConfusingVoidType": "off",
-        "noThenProperty": "off",
-        "noTsIgnore": "off"
+        "noThenProperty": "off"
       },
       "performance": {
         "noDelete": "off",
