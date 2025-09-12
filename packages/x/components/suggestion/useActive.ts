@@ -121,7 +121,7 @@ export default function useActive(
     if (open && Array.isArray(items) && items.length > 0) {
       setActivePaths([items[0].value]);
     }
-  }, [open]);
+  }, [open, items]);
 
   return [activePaths, onKeyDown] as const;
 }
