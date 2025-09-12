@@ -54,12 +54,13 @@
         "useUniqueElementIds": "off"
       },
       "suspicious": {
-        "noTsIgnore": "off",
         "noGlobalIsNan": "off",
         "noGlobalIsFinite": "off",
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
-        "noConfusingVoidType": "off"
+        "noConfusingVoidType": "off",
+        "noThenProperty": "off",
+        "noTsIgnore": "off"
       },
       "performance": {
         "noDelete": "off",
