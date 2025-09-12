@@ -12,7 +12,7 @@ order: 1
 | ------------- | ---------------------------- | ---------------------------- | ------ |
 | prefixCls     | 统一样式前缀                 | string                       | -      |
 | style         | 自定义样式                   | CSSProperties                | -      |
-| className     | 自定义类名                   | string                       | -      |
 | styles        | 语义化样式                   | Record<string,CSSProperties> | -      |
+| className     | 自定义类名                   | string                       | -      |
 | classNames    | 语义化自定义类名             | Record<string,string>        | -      |
 | rootClassName | 添加在组件最外层的 className | string                       | -      |
