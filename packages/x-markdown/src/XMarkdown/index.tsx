@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { useMemo } from 'react';
+import React from 'react';
 import useXProviderContext from '../hooks/use-x-provider-context';
 import { Parser, Renderer } from './core';
 import { useAnimation, useStreaming } from './hooks';
@@ -26,18 +26,12 @@ const XMarkdown: React.FC<XMarkdownProps> = (props) => {
 
   const prefixCls = getPrefixCls('x-markdown', customizePrefixCls);
 
-  const mergedCls = useMemo(
-    () => classnames(prefixCls, 'x-markdown', rootClassName, className),
-    [prefixCls, rootClassName, className],
-  );
+  const mergedCls = classnames(prefixCls, 'x-markdown', rootClassName, className);
 
-  const mergedStyle: React.CSSProperties = useMemo(
-    () => ({
-      direction: contextDirection === 'rtl' ? 'rtl' : 'ltr',
-      ...style,
-    }),
-    [contextDirection, style],
-  );
+  const mergedStyle: React.CSSProperties = {
+    direction: contextDirection === 'rtl' ? 'rtl' : 'ltr',
+    ...style,
+  };
 
   // ============================ Streaming ============================
   const displayContent = useStreaming(content || children || '', streaming);
@@ -45,43 +39,24 @@ const XMarkdown: React.FC<XMarkdownProps> = (props) => {
   // ============================ animation ============================
   const animationComponents = useAnimation(streaming);
 
-  // ============================ Memoized Parser & Renderer ============================
-  const parser = useMemo(
-    () =>
-      new Parser({
-        markedConfig: config,
-        paragraphTag,
-        openLinksInNewTab,
-      }),
-    [config, paragraphTag, openLinksInNewTab],
-  );
-
-  const renderComponents = useMemo(
-    () => ({ ...animationComponents, ...(components || {}) }),
-    [animationComponents, components],
-  );
-
-  const renderer = useMemo(
-    () =>
-      new Renderer({
-        components: renderComponents,
-      }),
-    [renderComponents],
-  );
-
   // ============================ Render ============================
-  const htmlString = useMemo(
-    () => (displayContent ? parser.parse(displayContent) : ''),
-    [displayContent, parser],
-  );
-
-  const renderedContent = useMemo(() => renderer.render(htmlString), [htmlString, renderer]);
-
   if (!displayContent) return null;
 
+  const parser = new Parser({
+    markedConfig: config,
+    paragraphTag,
+    openLinksInNewTab,
+  });
+
+  const renderComponents = { ...animationComponents, ...(components || {}) };
+  const renderer = new Renderer({
+    components: renderComponents,
+  });
+
+  const htmlString = parser.parse(displayContent);
   return (
     <div className={mergedCls} style={mergedStyle}>
-      {renderedContent}
+      {renderer.render(htmlString)}
     </div>
   );
 };
@@ -90,4 +65,4 @@ if (process.env.NODE_ENV !== 'production') {
   XMarkdown.displayName = 'XMarkdown';
 }
 
-export default React.memo(XMarkdown);
+export default XMarkdown;
