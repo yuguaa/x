@@ -121,7 +121,7 @@ const App = () => {
       if (!currentUrl) {
         return null;
       }
-      return `<footnote numbers="1,2,3" href="${currentUrl}" title="${currentTitle}">${text}</footnote>`;
+      return `<footnote href="${currentUrl}" title="${currentTitle}">${text}</footnote>`;
     },
   };
 
