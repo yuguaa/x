@@ -82,6 +82,16 @@ const referenceList = [
   { url: 'https://x.ant.design', title: 'link9' },
 ];
 
+const Footnote = (props: { children: string; href: string; title: string }) => {
+  return (
+    <Popover content={props?.title} title="Footnote" trigger="hover">
+      <span onClick={() => window.open(props.href)} className="markdown-cite">
+        {props?.children}
+      </span>
+    </Popover>
+  );
+};
+
 const App = () => {
   const [className] = useMarkdownTheme();
 
@@ -111,7 +121,7 @@ const App = () => {
       if (!currentUrl) {
         return null;
       }
-      return `<footnote href="${currentUrl}" title="${currentTitle}" >${text}</footnote>`;
+      return `<footnote href="${currentUrl}" title="${currentTitle}">${text}</footnote>`;
     },
   };
 
@@ -120,15 +130,7 @@ const App = () => {
       className={className}
       config={{ extensions: [footNoteExtension] }}
       components={{
-        footnote: (props: { children: string; href: string; title: string }) => {
-          return (
-            <Popover content={props?.title} title="Footnote" trigger="hover">
-              <span onClick={() => window.open(props.href)} className="markdown-cite">
-                {props?.children}
-              </span>
-            </Popover>
-          );
-        },
+        footnote: Footnote,
       }}
     >
       {content}
