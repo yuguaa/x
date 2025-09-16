@@ -82,15 +82,13 @@ const referenceList = [
   { url: 'https://x.ant.design', title: 'link9' },
 ];
 
-const Footnote = (props: { children: string; href: string; title: string }) => {
-  return (
-    <Popover content={props?.title} title="Footnote" trigger="hover">
-      <span onClick={() => window.open(props.href)} className="markdown-cite">
-        {props?.children}
-      </span>
-    </Popover>
-  );
-};
+const Footnote = (props: { children: string; href: string; title: string }) => (
+  <Popover content={props?.title} title="Footnote" trigger="hover">
+    <span onClick={() => window.open(props.href)} className="markdown-cite">
+      {props?.children}
+    </span>
+  </Popover>
+);
 
 const App = () => {
   const [className] = useMarkdownTheme();
